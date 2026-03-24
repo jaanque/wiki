@@ -6,15 +6,27 @@ import { useModels } from '@/hooks/useModels'
 import ModelTable from '@/components/ModelTable'
 import Pagination from '@/components/Pagination'
 import FeaturedBlock from '@/components/FeaturedBlock'
+import SkeletonTable from '@/components/SkeletonTable'
 
 function HomeContent() {
   const [page, setPage] = useState(1)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('')
+  const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' }>({
+    key: 'release_date',
+    direction: 'desc'
+  });
   const [categories, setCategories] = useState<{name: string, slug: string}[]>([])
   const PAGE_SIZE = 10
   
-  const { models, featuredModel, loading, totalCount } = useModels(page, PAGE_SIZE, searchQuery, selectedCategory)
+  const { models, featuredModel, loading, totalCount } = useModels(
+    page, 
+    PAGE_SIZE, 
+    searchQuery, 
+    selectedCategory,
+    sortConfig.key,
+    sortConfig.direction
+  )
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
   // Fetch categories for the filter dropdown
@@ -36,6 +48,14 @@ function HomeContent() {
     setSelectedCategory(val)
     setPage(1)
   }
+
+  const handleSort = (key: string) => {
+    setSortConfig(prev => ({
+      key,
+      direction: prev.key === key && prev.direction === 'desc' ? 'asc' : 'desc'
+    }));
+    setPage(1);
+  };
 
   return (
     <>
@@ -96,9 +116,15 @@ function HomeContent() {
       </div>
       
       {loading ? (
-        <div className="py-20 text-center text-gray-400 italic font-mono text-xs">EJECUTANDO QUERY SQL...</div>
+        <SkeletonTable />
       ) : (
-        <ModelTable models={models} />
+        <div className="fade-in">
+          <ModelTable 
+            models={models} 
+            sortConfig={sortConfig}
+            onSort={handleSort}
+          />
+        </div>
       )}
 
       {/* PAGINATION */}

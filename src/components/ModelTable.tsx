@@ -4,21 +4,42 @@ import { Model } from '@/types/database'
 
 interface ModelTableProps {
   models: Model[];
+  sortConfig?: { key: string; direction: 'asc' | 'desc' };
+  onSort?: (key: string) => void;
 }
 
-export default function ModelTable({ models }: ModelTableProps) {
+export default function ModelTable({ models, sortConfig, onSort }: ModelTableProps) {
+  const getIndicator = (key: string) => {
+    if (sortConfig?.key !== key) return null;
+    return sortConfig.direction === 'asc' ? ' ▲' : ' ▼';
+  };
+
   return (
     <table className="data-grid">
       <thead>
         <tr>
           <th style={{ width: '40px' }}>#</th>
-          <th>Modelo</th>
-          <th>Desarrollador</th>
-          <th>Categoría</th>
-          <th>Parámetros</th>
-          <th>MMLU</th>
-          <th>Contexto</th>
-          <th>Lanzamiento</th>
+          <th onClick={() => onSort?.('name')} className="cursor-pointer hover:bg-gray-100">
+            Modelo {getIndicator('name')}
+          </th>
+          <th onClick={() => onSort?.('developer')} className="cursor-pointer hover:bg-gray-100">
+            Desarrollador {getIndicator('developer')}
+          </th>
+          <th onClick={() => onSort?.('type')} className="cursor-pointer hover:bg-gray-100">
+            Categoría {getIndicator('type')}
+          </th>
+          <th onClick={() => onSort?.('parameters')} className="cursor-pointer hover:bg-gray-100">
+            Parámetros {getIndicator('parameters')}
+          </th>
+          <th onClick={() => onSort?.('mmlu_score')} className="cursor-pointer hover:bg-gray-100">
+            MMLU {getIndicator('mmlu_score')}
+          </th>
+          <th onClick={() => onSort?.('context_window')} className="cursor-pointer hover:bg-gray-100">
+            Contexto {getIndicator('context_window')}
+          </th>
+          <th onClick={() => onSort?.('release_date')} className="cursor-pointer hover:bg-gray-100">
+            Lanzamiento {getIndicator('release_date')}
+          </th>
           <th style={{ textAlign: 'center' }}>Acción</th>
         </tr>
       </thead>
@@ -43,9 +64,14 @@ export default function ModelTable({ models }: ModelTableProps) {
                     model.name.substring(0, 1)
                   )}
                 </div>
-                <Link href={`/ai/${model.slug}`} className="font-bold hover:underline">
-                  {model.name}
-                </Link>
+                <div className="flex items-center gap-2">
+                  <Link href={`/ai/${model.slug}`} className="font-bold hover:underline">
+                    {model.name}
+                  </Link>
+                  {model.release_date && (new Date().getTime() - new Date(model.release_date).getTime()) < 14 * 24 * 60 * 60 * 1000 && (
+                    <span className="badge-new">NUEVO</span>
+                  )}
+                </div>
               </div>
             </td>
             <td>
@@ -60,13 +86,13 @@ export default function ModelTable({ models }: ModelTableProps) {
                     <Link 
                       key={mc.category.id} 
                       href={`/category/${mc.category.slug}`}
-                      className="badge badge-text hover:bg-blue-100"
+                      className="badge badge-text"
                     >
                       {mc.category.name}
                     </Link>
                   ))
                 ) : (
-                  <span className="text-gray-400 italic text-[10px]">Sin categoría</span>
+                  <span className="badge badge-empty">Sin categoría</span>
                 )}
               </div>
             </td>

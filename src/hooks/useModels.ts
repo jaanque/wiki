@@ -2,7 +2,14 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Model } from '@/types/database'
 
-export function useModels(page: number, pageSize: number, searchTerm: string = '', categorySlug: string = '') {
+export function useModels(
+  page: number, 
+  pageSize: number, 
+  searchTerm: string = '', 
+  categorySlug: string = '',
+  sortBy: string = 'release_date',
+  sortOrder: 'asc' | 'desc' = 'desc'
+) {
   const [models, setModels] = useState<Model[]>([])
   const [featuredModel, setFeaturedModel] = useState<Model | null>(null)
   const [loading, setLoading] = useState(true)
@@ -22,7 +29,7 @@ export function useModels(page: number, pageSize: number, searchTerm: string = '
         .select(selectString, { count: 'exact' })
         
       if (searchTerm) {
-        query = query.ilike('name', `%${searchTerm}%`)
+        query = query.or(`name.ilike.%${searchTerm}%,developer.ilike.%${searchTerm}%`)
       }
 
       if (categorySlug) {
@@ -30,7 +37,7 @@ export function useModels(page: number, pageSize: number, searchTerm: string = '
       }
 
       const { data, count } = await query
-        .order('release_date', { ascending: false })
+        .order(sortBy, { ascending: sortOrder === 'asc' })
         .range(from, to)
 
       if (data) {
@@ -49,7 +56,7 @@ export function useModels(page: number, pageSize: number, searchTerm: string = '
     }
 
     fetchData()
-  }, [page, pageSize, searchTerm, categorySlug])
+  }, [page, pageSize, searchTerm, categorySlug, sortBy, sortOrder])
 
   return { models, featuredModel, loading, totalCount }
 }

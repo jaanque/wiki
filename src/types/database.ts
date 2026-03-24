@@ -23,5 +23,6 @@ export interface Model {
   description: string;
   documentation_url?: string;
   logo_url?: string;
+  created_at?: string;
   model_categories?: ModelCategory[];
 }
