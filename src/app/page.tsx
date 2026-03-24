@@ -15,10 +15,16 @@ function HomeContent() {
 
   return (
     <>
-      <div className="unified-header mb-6">
-        <h1>Directorio de Inteligencia Artificial</h1>
-        <p className="text-gray-600 mt-1">
-          Explora la base de datos técnica más completa de modelos de lenguaje, visión y audio.
+      <div className="wiki-notice mb-6">
+        <strong>Directorio Técnico de IA:</strong> Estás consultando el índice técnico de código abierto para modelos de lenguaje, visión y audio. Esta base de datos está diseñada para desarrolladores e investigadores que buscan métricas comparativas precisas (MMLU, Contexto, Licencias).
+      </div>
+
+      <div className="mb-8">
+        <h1 className="text-2xl font-black tracking-tighter uppercase mb-2">
+          Índice de Inteligencia Artificial
+        </h1>
+        <p className="text-gray-500 text-sm italic">
+          Documentación técnica estructurada de los modelos más avanzados de la industria.
         </p>
       </div>
 

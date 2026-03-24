@@ -14,9 +14,9 @@ export default function Breadcrumbs() {
   
   // Generar los breadcrumbs basados en la ruta
   return (
-    <nav className="breadcrumb py-4 flex items-center gap-2">
-      <Link href="/">Portales</Link>
-      <span className="text-gray-300">»</span>
+    <nav className="breadcrumb text-[11px] text-gray-500 flex items-center gap-1 py-1 px-3 bg-gray-50 border-b border-wiki-border mb-4">
+      <Link href="/" className="text-wiki-blue">Portada</Link>
+      <span className="text-gray-400">»</span>
       
       {segments.map((segment, index) => {
         const url = `/${segments.slice(0, index + 1).join('/')}`

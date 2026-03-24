@@ -36,7 +36,10 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
           .eq('category_id', catData.id)
 
         if (!error && modelData) {
-          const formattedModels = (modelData as any).map((item: any) => item.models)
+          const formattedModels = (modelData as unknown as { models: Model | Model[] }[]).map(item => {
+            const m = Array.isArray(item.models) ? item.models[0] : item.models
+            return m
+          }).filter((m): m is Model => m !== null)
           setModels(formattedModels)
         }
       }
@@ -77,14 +80,22 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
 
   return (
     <div className="category-view content-inner">
-      <div className="unified-header" style={{ padding: '30px' }}>
-        <h1 className="text-3xl font-bold mb-2">Categoría: {category.name}</h1>
-        <p className="text-gray-600">{category.description}</p>
+      <div className="wiki-notice mb-8" role="region" aria-label="Información de categoría">
+        <strong>Clasificación Técnica:</strong> Estás navegando por el archivo especializado para <strong>{category.name}</strong>. En esta sección se agrupan todos los modelos que comparten esta arquitectura o modalidad específica.
       </div>
 
-      <div className="flex justify-between items-center mb-4 pb-2 border-b-2 border-wiki-border mt-8">
-        <h2 className="font-bold">Modelos en esta sección</h2>
-        <span className="text-sm text-gray-500">{models.length} modelos técnicos</span>
+      <header className="mb-10">
+        <h1 className="text-3xl font-black tracking-tighter uppercase mb-2">
+          Índice Técnico: {category.name}
+        </h1>
+        <p className="text-gray-500 text-sm italic">{category.description}</p>
+      </header>
+
+      <div className="flex justify-between items-end mb-6 pb-2 border-b-2 border-wiki-border">
+        <h2 className="font-black text-xl uppercase tracking-tighter">Modelos en esta sección</h2>
+        <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wider bg-gray-50 px-3 py-1 border border-gray-200">
+          Mostrando {models.length} entradas registradas
+        </div>
       </div>
 
       <ModelTable models={models} />

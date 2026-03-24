@@ -116,12 +116,21 @@ export default function SearchHeader() {
         )}
       </div>
 
-      <nav className="utility-nav">
-        <Link href="/login" className="nav-link">Login</Link>
+      <nav className="utility-nav" aria-label="Usuario y utilidades">
+        <Link href="/login" className="nav-link" title="Acceder a tu perfil">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Login
+        </Link>
         <span className="divider">|</span>
-        <Link href="/docs" className="nav-link">Documentación</Link>
+        <Link href="/docs" className="nav-link" title="Documentación oficial">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M8 7h6"/><path d="M8 11h8"/></svg>
+          Doc
+        </Link>
         <span className="divider">|</span>
-        <Link href="/add" className="nav-link">Añadir</Link>
+        <Link href="/add" className="nav-link" title="Añadir nuevo registro">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          Añadir
+        </Link>
       </nav>
     </header>
   )

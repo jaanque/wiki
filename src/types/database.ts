@@ -20,5 +20,7 @@ export interface Model {
   parameters: string;
   mmlu_score: number | null;
   release_date: string;
+  description: string;
+  documentation_url?: string;
   model_categories?: ModelCategory[];
 }

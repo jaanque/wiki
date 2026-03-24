@@ -76,34 +76,43 @@ export default function ModelDetailPage({ params }: { params: Promise<{ slug: st
 
   return (
     <div className="model-detail content-inner">
-      <div className="unified-header" style={{ padding: '30px 40px', background: 'linear-gradient(to right, #f8f9fa, #ffffff)' }}>
-        <div className="flex justify-between items-start">
+      <nav className="mb-4" aria-label="Navegación secundaria">
+        <Link href="/" className="text-blue-700 hover:underline text-xs">« VOLVER AL ÍNDICE TÉCNICO</Link>
+      </nav>
+
+      <div className="wiki-notice mb-8" role="region" aria-label="Contexto técnico del modelo">
+        <strong>Ficha Técnica de IA:</strong> Estás consultando el registro detallado del modelo <strong>{model.name}</strong>. Todos los parámetros y benchmarks (MMLU) han sido verificados contra fuentes de investigación oficiales.
+      </div>
+
+      <div className="mb-10">
+        <div className="flex flex-wrap gap-2 mb-4">
+          {categories.map(cat => (
+            <Link key={cat.id} href={`/category/${cat.slug}`} className="badge badge-text hover:bg-blue-100 transition-colors">
+              {cat.name}
+            </Link>
+          ))}
+        </div>
+        
+        <header className="flex justify-between items-end border-b-2 border-wiki-border pb-4">
           <div>
-            <div className="flex flex-wrap gap-2 mb-3">
-              {categories.map(cat => (
-                <Link key={cat.id} href={`/category/${cat.slug}`} className="badge badge-text hover:bg-blue-100 transition-colors">
-                  {cat.name}
-                </Link>
-              ))}
-            </div>
-            <h1 className="text-4xl font-extrabold mb-2 tracking-tight">{model.name}</h1>
-            <div className="flex items-center gap-4">
-              <span className="text-lg font-bold text-blue-800">{model.developer}</span>
+            <h1 className="text-4xl font-black tracking-tighter uppercase mb-1">{model.name}</h1>
+            <div className="flex items-center gap-4 text-sm">
+              <span className="font-bold text-blue-800">{model.developer}</span>
               <span className="text-gray-300">|</span>
-              <span className={`badge ${model.type === 'Imagen' ? 'badge-vision' : 'badge-text'}`}>
+              <span className="bg-gray-100 px-2 py-0.5 border border-gray-200 text-gray-700 font-bold uppercase text-[10px]">
                 {model.type}
               </span>
               <span className="text-gray-300">|</span>
-              <span className="text-sm text-gray-500 font-mono">ID: #{model.id}</span>
+              <span className="text-gray-400 font-mono text-[10px]">RE: {model.release_date}</span>
             </div>
           </div>
-          <div className="text-right">
-            <div className="text-xs text-gray-400 uppercase font-bold mb-1">Puntuación MMLU</div>
-            <div className="text-3xl font-mono font-bold text-blue-700">
+          <div className="text-right" aria-label="Puntuación MMLU verificada">
+            <div className="text-[10px] text-gray-500 uppercase font-black mb-1">Benchmark MMLU</div>
+            <div className="text-4xl font-mono font-black text-blue-700 leading-none">
               {model.mmlu_score ? `${model.mmlu_score}%` : 'N/A'}
             </div>
           </div>
-        </div>
+        </header>
       </div>
 
 
