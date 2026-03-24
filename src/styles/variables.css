@@ -1,0 +1,13 @@
+:root {
+  --background: #ffffff;
+  --foreground: #202122; /* Pure Wiki High-Contrast Black */
+  --text-secondary: #4a4d50; /* Darker secondary text for AA compliance */
+  --sidebar-bg: #f8f9fa;
+  --header-bg: #f8f9fa;
+  --table-header-bg: #eaecf0;
+  --border-color: #a2a9b1;
+  --link-color: #0645ad;
+  --wiki-link: #ad0606;
+  --wiki-border: #a2a9b1;
+  --wiki-blue: #0645ad;
+}

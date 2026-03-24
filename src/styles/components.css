@@ -1,0 +1,204 @@
+/* Navigation & Headers */
+.top-header {
+  height: 50px;
+  background-color: var(--header-bg);
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo-mono {
+  font-family: Consolas, monospace;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--foreground);
+  border: 1px solid var(--border-color);
+  padding: 2px 8px;
+  background: #ffffff;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+  font-size: 12px;
+  color: #5f6368;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.breadcrumb a {
+  color: var(--link-color);
+  font-weight: 500;
+}
+
+/* Tables & Data Grids */
+.data-grid {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+  border: 1px solid var(--border-color);
+  background-color: #ffffff;
+}
+
+.data-grid th {
+  background-color: #f1f3f5;
+  color: #202122;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 11px;
+  padding: 12px 15px;
+  border-bottom: 2px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.data-grid td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eaecf0;
+  border-right: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+.data-grid tr:hover td {
+  background-color: #f8faff;
+}
+
+/* Badges & Tags */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-text {
+  background-color: #f0f4ff;
+  color: var(--link-color);
+  border: 1px solid #c0d0ff;
+}
+
+/* Logos */
+.logo-table {
+  width: 32px;
+  height: 32px;
+  background-color: #f8f9fa;
+  border: 1px solid #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  border-radius: 2px;
+  font-weight: 800;
+  color: var(--link-color);
+}
+
+/* Featured Block */
+.featured-block {
+  background: linear-gradient(135deg, #ffffff 0%, #fcfdfe 100%);
+  border: 1px solid var(--border-color);
+  padding: 30px;
+  box-shadow: 4px 4px 0px rgba(162, 169, 177, 0.2);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.featured-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--link-color);
+}
+
+.badge-featured {
+  position: absolute;
+  top: 20px;
+  right: -25px;
+  background: var(--link-color);
+  color: white;
+  width: 120px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 900;
+  transform: rotate(45deg);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  line-height: 20px;
+}
+.btn-wiki {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  background: #ffffff;
+  border: 1px solid #a2a9b1;
+  color: var(--link-color);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 2px;
+  text-decoration: none;
+}
+
+.btn-wiki:hover {
+  background: #f8f9fa;
+  border-color: #72777d;
+  text-decoration: none;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.page-link {
+  padding: 6px 14px;
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  color: var(--link-color);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.1s ease;
+  user-select: none;
+}
+
+.page-link:hover:not(:disabled) {
+  background-color: var(--link-color);
+  color: #ffffff;
+  border-color: var(--link-color);
+}
+
+.page-link:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+
+.page-link.active {
+  background: var(--table-header-bg);
+  font-weight: bold;
+  color: var(--foreground);
+  border-color: var(--border-color);
+}

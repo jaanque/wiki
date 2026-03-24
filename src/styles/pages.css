@@ -1,0 +1,67 @@
+/* Page-Specific Technical Views */
+
+/* 404 / Error States */
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px dashed var(--border-color);
+  margin-top: 40px;
+}
+
+.error-code {
+  font-size: 120px;
+  font-weight: 900;
+  color: #eaecf0;
+  line-height: 1;
+  margin-bottom: -40px;
+  user-select: none;
+}
+
+.error-badge {
+  background: #333;
+  color: #fff;
+  padding: 4px 12px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  z-index: 1;
+}
+
+.error-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: var(--foreground);
+}
+
+.error-message {
+  max-width: 500px;
+  margin: 0 auto 32px auto;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.technical-details {
+  background: #f8f9fa;
+  border: 1px solid var(--border-color);
+  padding: 15px;
+  font-family: Consolas, monospace;
+  font-size: 11px;
+  text-align: left;
+  width: 100%;
+  max-width: 500px;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+/* Category Detail View */
+.category-view .unified-header {
+  border-bottom: 3px solid var(--link-color);
+}
