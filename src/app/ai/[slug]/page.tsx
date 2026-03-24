@@ -74,6 +74,18 @@ export default function ModelDetailPage({ params }: { params: Promise<{ slug: st
     )
   }
 
+  const getLicenseClass = (license: string) => {
+    const l = license.toLowerCase();
+    if (l.includes('proprietary') || l.includes('privativo')) return 'tag-license-prop';
+    return 'tag-license-open';
+  };
+
+  const getTypeClass = (type: string) => {
+    const t = type.toLowerCase();
+    if (t.includes('multimodal')) return 'tag-type-multimodal';
+    return 'tag-type-text';
+  };
+
   return (
     <div className="model-detail content-inner">
       <nav className="mb-4" aria-label="Navegación secundaria">
@@ -99,7 +111,7 @@ export default function ModelDetailPage({ params }: { params: Promise<{ slug: st
             <div className="flex items-center gap-4 text-sm">
               <span className="font-bold text-blue-800">{model.developer}</span>
               <span className="text-gray-300">|</span>
-              <span className="bg-gray-100 px-2 py-0.5 border border-gray-200 text-gray-700 font-bold uppercase text-[10px]">
+              <span className={`px-2 py-0.5 border font-bold uppercase text-[10px] ${getTypeClass(model.type)}`}>
                 {model.type}
               </span>
               <span className="text-gray-300">|</span>
@@ -147,11 +159,19 @@ export default function ModelDetailPage({ params }: { params: Promise<{ slug: st
               </tr>
               <tr>
                 <td className="bg-gray-50 font-bold">Modalidad de Entrada/Salida</td>
-                <td>{model.type}</td>
+                <td>
+                  <span className={`px-2 py-0.5 border font-bold uppercase text-[10px] ${getTypeClass(model.type)}`}>
+                    {model.type}
+                  </span>
+                </td>
               </tr>
               <tr>
                 <td className="bg-gray-50 font-bold">Licencia de Distribución</td>
-                <td>{model.license}</td>
+                <td>
+                  <span className={`px-2 py-0.5 border font-bold uppercase text-[10px] ${getLicenseClass(model.license)}`}>
+                    {model.license}
+                  </span>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -210,11 +230,19 @@ export default function ModelDetailPage({ params }: { params: Promise<{ slug: st
                 </tr>
                 <tr>
                   <th>Licencia</th>
-                  <td>{model.license}</td>
+                  <td>
+                    <span className={`px-1 py-0.5 border font-bold uppercase text-[9px] ${getLicenseClass(model.license)}`}>
+                      {model.license}
+                    </span>
+                  </td>
                 </tr>
                 <tr>
                   <th>Tipo</th>
-                  <td>{model.type}</td>
+                  <td>
+                    <span className={`px-1 py-0.5 border font-bold uppercase text-[9px] ${getTypeClass(model.type)}`}>
+                      {model.type}
+                    </span>
+                  </td>
                 </tr>
                 <tr>
                   <th>Lanzamiento</th>

@@ -64,6 +64,7 @@
 .bg-gray-50 { background-color: var(--sidebar-bg); }
 .bg-blue-50 { background-color: #f0f4ff; }
 .text-center { text-align: center; }
+.text-left { text-align: left; }
 
 /* Borders */
 .border-b { border-bottom: 1px solid var(--border-color); }

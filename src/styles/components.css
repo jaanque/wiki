@@ -59,14 +59,15 @@
   font-weight: 700;
   padding: 6px 8px; /* High density */
   border: 1px solid var(--border-color);
-  text-align: left;
+  text-align: center; /* Centrado horizontal */
   font-size: 12px;
 }
 
 .data-grid td {
-  padding: 6px 8px; /* High density */
+  padding: 8px; /* High density */
   border: 1px solid #dee2e6;
-  vertical-align: top;
+  vertical-align: middle; /* Centrado vertical */
+  text-align: center; /* Centrado horizontal global */
   line-height: 1.4;
 }
 
@@ -427,10 +428,10 @@
 }
 
 .sidebar-list li a.active {
-  background-color: #f0f4ff; /* Subtle active background */
-  color: #000;
+  background-color: #edf2f9; /* Higher contrast technical background */
+  color: #1a56db; /* Deeper technical blue */
   font-weight: 700;
-  border-left: 4px solid var(--wiki-blue); /* Stronger indicator */
+  border-left: 4px solid #2563eb; /* Prominent indicator bar */
 }
 
 .sidebar-list li a svg {
@@ -444,7 +445,7 @@
 }
 
 .sidebar-list li a.active svg {
-  color: var(--wiki-blue);
+  color: #2563eb;
 }
 
 /* High-visibility focus state for accessibility */
@@ -493,8 +494,8 @@ input:focus-visible {
 
 /* Wiki Notice Box - Technical Context */
 .wiki-notice {
-  background-color: #f8f9fa;
-  border: 1px solid var(--border-color);
+  background-color: #f0f7ff; /* Subtle technical blue to distinguish from gray */
+  border: 1px solid #c8dcf0;
   border-left: 5px solid var(--adminer-blue);
   padding: 12px 16px;
   font-size: 13px;
@@ -681,4 +682,81 @@ th.cursor-pointer:active {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tooltip System */
+.wiki-tooltip {
+  position: relative;
+  display: inline-flex;
+  cursor: help;
+  color: #3366cc;
+  margin-left: 4px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.wiki-tooltip .tooltip-text {
+  visibility: hidden;
+  width: 260px;
+  background-color: #202122;
+  color: #fff;
+  text-align: left;
+  padding: 10px 14px;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 1000;
+  bottom: 140%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  font-family: var(--font-sans);
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 1.5;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  pointer-events: none;
+  border: 1px solid #54595d;
+}
+
+.wiki-tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: #202122 transparent transparent transparent;
+}
+
+.wiki-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px);
+}
+
+/* Semantic Color Coding for Tags */
+.tag-license-open {
+  background-color: #f0fff4 !important;
+  color: #1a7f37 !important;
+  border-color: #bef5cb !important;
+}
+
+.tag-license-prop {
+  background-color: #f6f8fa !important;
+  color: #57606a !important;
+  border-color: #d0d7de !important;
+}
+
+.tag-type-text {
+  background-color: #f0f7ff !important;
+  color: #0969da !important;
+  border-color: #bfdbfe !important;
+}
+
+.tag-type-multimodal {
+  background-color: #faf5ff !important;
+  color: #8250df !important;
+  border-color: #e9d8fd !important;
 }

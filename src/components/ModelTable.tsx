@@ -14,12 +14,24 @@ export default function ModelTable({ models, sortConfig, onSort }: ModelTablePro
     return sortConfig.direction === 'asc' ? ' ▲' : ' ▼';
   };
 
+  const getLicenseClass = (license: string) => {
+    const l = license.toLowerCase();
+    if (l.includes('proprietary') || l.includes('privativo')) return 'tag-license-prop';
+    return 'tag-license-open';
+  };
+
+  const getTypeClass = (type: string) => {
+    const t = type.toLowerCase();
+    if (t.includes('multimodal')) return 'tag-type-multimodal';
+    return 'tag-type-text';
+  };
+
   return (
     <table className="data-grid">
       <thead>
         <tr>
           <th style={{ width: '40px' }}>#</th>
-          <th onClick={() => onSort?.('name')} className="cursor-pointer hover:bg-gray-100">
+          <th onClick={() => onSort?.('name')} className="cursor-pointer hover:bg-gray-100 text-left">
             Modelo {getIndicator('name')}
           </th>
           <th onClick={() => onSort?.('developer')} className="cursor-pointer hover:bg-gray-100">
@@ -28,11 +40,21 @@ export default function ModelTable({ models, sortConfig, onSort }: ModelTablePro
           <th onClick={() => onSort?.('type')} className="cursor-pointer hover:bg-gray-100">
             Categoría {getIndicator('type')}
           </th>
+          <th onClick={() => onSort?.('license')} className="cursor-pointer hover:bg-gray-100">
+            Licencia {getIndicator('license')}
+          </th>
           <th onClick={() => onSort?.('parameters')} className="cursor-pointer hover:bg-gray-100">
             Parámetros {getIndicator('parameters')}
           </th>
           <th onClick={() => onSort?.('mmlu_score')} className="cursor-pointer hover:bg-gray-100">
-            MMLU {getIndicator('mmlu_score')}
+            MMLU 
+            <span className="wiki-tooltip" title="Nivel de conocimiento general">
+              [?]
+              <span className="tooltip-text">
+                Massive Multitask Language Understanding: Benchmark que mide el conocimiento general y resolución de problemas en 57 materias (STEM, Humanidades, etc.).
+              </span>
+            </span>
+            {getIndicator('mmlu_score')}
           </th>
           <th onClick={() => onSort?.('context_window')} className="cursor-pointer hover:bg-gray-100">
             Contexto {getIndicator('context_window')}
@@ -47,7 +69,7 @@ export default function ModelTable({ models, sortConfig, onSort }: ModelTablePro
         {models.map((model, index) => (
           <tr key={model.id}>
             <td className="text-gray-400 font-mono text-xs">{(index + 1).toString().padStart(2, '0')}</td>
-            <td>
+            <td className="text-left">
               <div className="flex items-center gap-3">
                 <div className="logo-table">
                   {model.logo_url ? (
@@ -75,18 +97,18 @@ export default function ModelTable({ models, sortConfig, onSort }: ModelTablePro
               </div>
             </td>
             <td>
-              <div className="flex flex-column">
+              <div className="flex flex-column items-center">
                 <span className="font-bold text-gray-700">{model.developer}</span>
               </div>
             </td>
             <td>
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-1 justify-center">
                 {model.model_categories && model.model_categories.length > 0 ? (
                   model.model_categories.map((mc) => (
                     <Link 
                       key={mc.category.id} 
                       href={`/category/${mc.category.slug}`}
-                      className="badge badge-text"
+                      className={`badge badge-text ${getTypeClass(model.type)}`}
                     >
                       {mc.category.name}
                     </Link>
@@ -95,6 +117,11 @@ export default function ModelTable({ models, sortConfig, onSort }: ModelTablePro
                   <span className="badge badge-empty">Sin categoría</span>
                 )}
               </div>
+            </td>
+            <td>
+              <span className={`badge ${getLicenseClass(model.license)}`}>
+                {model.license}
+              </span>
             </td>
             <td>{model.parameters}</td>
             <td className="font-mono text-blue-700 font-bold">{model.mmlu_score ? `${model.mmlu_score}%` : 'N/A'}</td>
@@ -109,7 +136,7 @@ export default function ModelTable({ models, sortConfig, onSort }: ModelTablePro
         ))}
         {models.length === 0 && (
           <tr>
-            <td colSpan={10} className="text-center py-10 bg-gray-50 italic text-gray-500">
+            <td colSpan={11} className="text-center py-10 bg-gray-50 italic text-gray-500">
               No se encontraron modelos en el índice técnico.
             </td>
           </tr>
