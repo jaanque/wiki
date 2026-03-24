@@ -4,6 +4,12 @@ import { useEffect, useState, use } from 'react'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 
+interface Category {
+  id: number;
+  name: string;
+  slug: string;
+}
+
 interface Model {
   id: number;
   name: string;
@@ -19,12 +25,13 @@ interface Model {
   description: string;
   logo_url?: string;
   documentation_url?: string;
+  model_categories?: { category: Category }[];
 }
 
 export default function ModelDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
   const [model, setModel] = useState<Model | null>(null)
-  const [categories, setCategories] = useState<any[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -44,7 +51,7 @@ export default function ModelDetailPage({ params }: { params: Promise<{ slug: st
       if (!error && data) {
         setModel(data)
         // Aplanamos las categorías
-        const cats = data.model_categories?.map((mc: any) => mc.category) || []
+        const cats = data.model_categories?.map((mc: { category: Category }) => mc.category) || []
         setCategories(cats)
       }
       setLoading(false)
@@ -99,9 +106,6 @@ export default function ModelDetailPage({ params }: { params: Promise<{ slug: st
         </div>
       </div>
 
-      <div className="adsense-horizontal">
-        [ ADSENSE - TOP AD ]
-      </div>
 
       <div className="detail-grid">
         {/* MAIN CONTENT */}
@@ -228,9 +232,6 @@ export default function ModelDetailPage({ params }: { params: Promise<{ slug: st
             </a>
           </div>
 
-          <div className="adsense-skyscraper mt-6" style={{ height: '600px' }}>
-            [ ADSENSE - SIDEBAR ]
-          </div>
         </aside>
       </div>
     </div>

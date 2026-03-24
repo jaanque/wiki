@@ -45,9 +45,6 @@ function HomeContent() {
         onPageChange={(p) => setPage(p)} 
       />
 
-      <div className="adsense-bottom py-10 text-center text-gray-400 italic text-[10px] uppercase tracking-widest border-t border-dashed border-gray-200 mt-20">
-        [ ADSENSE - BOTTOM BANNER (728x90) ]
-      </div>
     </>
   );
 }

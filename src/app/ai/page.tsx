@@ -91,9 +91,6 @@ export default function AIIndexPage() {
               <Link href="/random" className="btn-wiki w-full text-center">MODELO ALEATORIO</Link>
             </div>
           </div>
-          <div className="adsense-skyscraper mt-6" style={{ height: '400px' }}>
-            [ ADSENSE - SIDEBAR ]
-          </div>
         </aside>
       </div>
     </div>

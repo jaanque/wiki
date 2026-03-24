@@ -34,9 +34,6 @@ export default function RootLayout({
               <Breadcrumbs />
               {children}
               
-              <div className="adsense-horizontal">
-                [ ADSENSE - BOTTOM BANNER (728x90) ]
-              </div>
             </div>
             
             <footer className="wiki-footer">

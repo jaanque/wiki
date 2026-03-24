@@ -97,16 +97,18 @@ export default function SearchHeader() {
                 >
                   <div className="item-main">
                     <span className="item-name">{res.name}</span>
-                    <span className="item-developer">{res.developer}</span>
+                    <span className="item-developer uppercase font-mono">{res.developer}</span>
                   </div>
-                  <div className="item-type">WIKI →</div>
+                  <div className="item-type">TECHNICAL FICHA »</div>
                 </div>
               ))
             ) : (
-              <div className="p-4 text-xs text-gray-500 italic">No se han encontrado registros vinculados.</div>
+              <div className="p-3 text-[11px] text-gray-500 italic bg-gray-50 border-b border-wiki-border">
+                [!] No se han encontrado registros técnicos coincidentes.
+              </div>
             )}
             <div className="dropdown-footer">
-              Presiona ENTER para búsqueda avanzada
+              ENTER FOR ADVANCED SYSTEM SEARCH
             </div>
           </div>
         )}

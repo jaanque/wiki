@@ -94,10 +94,6 @@ export default function Sidebar() {
         </ul>
       </div>
 
-      <div className="adsense-skyscraper">
-        [ ESPACIO PARA ADSENSE ]<br/>
-        (Skyscraper 160x600)
-      </div>
     </aside>
   )
 }
