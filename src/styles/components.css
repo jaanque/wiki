@@ -395,16 +395,16 @@
 }
 
 .sidebar-list li a:hover {
-  background-color: #ffffff;
+  background-color: #f8f9fa;
   text-decoration: underline;
   border-left-color: #a2a9b1; /* Intermediate state */
 }
 
 .sidebar-list li a.active {
-  background-color: #ffffff;
+  background-color: #f0f4ff; /* Subtle active background */
   color: #000;
   font-weight: 700;
-  border-left-color: var(--wiki-blue);
+  border-left: 4px solid var(--wiki-blue); /* Stronger indicator */
 }
 
 .sidebar-list li a svg {
