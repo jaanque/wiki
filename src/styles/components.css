@@ -483,32 +483,28 @@ input:focus-visible {
 }
 
 /* Minimalist Featured Block */
-/* God-tier Featured Block Overhaul */
+/* Final Featured Block Refinement - Simple Vertical Stack */
+/* Extremely Thin Featured Block Refinement */
 .featured-block-minimal {
   background-color: #ffffff;
   border: 1px solid var(--border-color);
-  border-left: 8px solid var(--wiki-blue);
-  margin-bottom: 50px;
-  box-shadow: 4px 4px 0 rgba(0,0,0,0.03); /* Wikipedia-style subtle depth */
+  padding: 12px;
+  margin-bottom: 25px;
 }
 
 .featured-block-minimal h2 {
   color: #000;
-  letter-spacing: -0.05em;
-}
-
-.featured-specs-table th {
-  color: #54595d;
-  font-size: 10px;
-}
-
-.featured-specs-table td {
-  color: #202122;
 }
 
 .featured-block-minimal .btn-wiki {
-  font-size: 11px;
-  font-weight: 900;
+  font-size: 10px;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  border: 1px solid var(--border-color);
+}
+
+.featured-block-minimal .btn-wiki:hover {
+  background-color: #fff;
+  border-color: var(--wiki-blue);
+  color: var(--wiki-blue);
 }
