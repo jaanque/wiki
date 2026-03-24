@@ -37,3 +37,13 @@ input:focus {
   outline: none;
   border: 1px solid var(--link-color) !important;
 }
+
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}

@@ -1,6 +1,6 @@
 /* Structural Layout */
 .main-wrapper {
-  display: flex;
+  display: flex !important;
   height: calc(100vh - 50px);
   overflow: hidden;
   background-color: var(--background);
@@ -16,18 +16,18 @@
 .content-inner {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 16px 20px 40px 20px; /* Reduced paddings for density */
+  padding: 16px 20px 40px 20px;
 }
 
-/* Sidebar Styles - Wikipedia Vector Inspired */
+/* Sidebar Structural Base */
 .sidebar-left {
-  width: 176px; /* High-density width */
+  width: 176px;
+  min-width: 176px;
   background-color: var(--sidebar-bg);
   border-right: 1px solid var(--border-color);
-  padding: 12px 0; /* Vertical padding only */
+  padding: 12px 0;
   overflow-y: auto;
   flex-shrink: 0;
-  font-size: 13px;
 }
 
 .sidebar-section {
@@ -35,65 +35,10 @@
 }
 
 .sidebar-section h3 {
-  font-size: 11px;
-  font-weight: 400;
-  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
   color: #72777d;
   border-bottom: 1px solid var(--border-color);
-  margin-left: 12px;
-  margin-right: 12px;
-  margin-bottom: 8px;
-  padding-bottom: 2px;
-}
-
-/*
-.sidebar-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar-list li {
-  margin-bottom: 2px;
-}
-
-.sidebar-list li a {
-  display: flex;
-  align-items: center;
-  padding: 4px 12px;
-  color: var(--link-color);
-  text-decoration: none;
-  font-size: 13px;
-  line-height: 1.4;
-  border-left: 3px solid transparent;
-}
-
-.sidebar-list li a svg {
-  color: #72777d; 
-  flex-shrink: 0;
-}
-
-.sidebar-list li a:hover {
-  background-color: #ffffff;
-  text-decoration: underline;
-  border-left-color: #a2a9b1;
-}
-
-.sidebar-list li a.active {
-  font-weight: 700;
-  color: #000;
-  background-color: #ffffff;
-  border-left: 3px solid var(--wiki-blue);
-}
-
-.sidebar-list li a.active svg {
-  color: var(--wiki-blue);
-}
-*/
-
-.sidebar-count {
-  float: right;
-  font-size: 10px;
-  color: #a2a9b1;
-  font-weight: 400;
+  margin: 0 12px 10px 12px;
+  padding-bottom: 4px;
 }
