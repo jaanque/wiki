@@ -32,35 +32,84 @@ export default function ModelTable({ models, sortConfig, onSort }: ModelTablePro
         <tr>
           <th style={{ width: '40px' }}>#</th>
           <th onClick={() => onSort?.('name')} className="cursor-pointer hover:bg-gray-100 text-left">
-            Modelo {getIndicator('name')}
+            Modelo 
+            <span className="wiki-tooltip">
+              [?]
+              <span className="tooltip-text">
+                Nombre técnico y comercial del modelo fundacional registrado.
+              </span>
+            </span>
+            {getIndicator('name')}
           </th>
           <th onClick={() => onSort?.('developer')} className="cursor-pointer hover:bg-gray-100">
-            Desarrollador {getIndicator('developer')}
+            Desarrollador 
+            <span className="wiki-tooltip">
+              [?]
+              <span className="tooltip-text">
+                Organización o consorcio responsable del desarrollo del modelo.
+              </span>
+            </span>
+            {getIndicator('developer')}
           </th>
           <th onClick={() => onSort?.('type')} className="cursor-pointer hover:bg-gray-100">
-            Categoría {getIndicator('type')}
+            Categoría 
+            <span className="wiki-tooltip">
+              [?]
+              <span className="tooltip-text">
+                Clasificación basada en la arquitectura o función (e.g. LLM, Vision).
+              </span>
+            </span>
+            {getIndicator('type')}
           </th>
           <th onClick={() => onSort?.('license')} className="cursor-pointer hover:bg-gray-100">
-            Licencia {getIndicator('license')}
+            Licencia 
+            <span className="wiki-tooltip">
+              [?]
+              <span className="tooltip-text">
+                Términos legales de distribución (Proprietary, Apache, etc.).
+              </span>
+            </span>
+            {getIndicator('license')}
           </th>
           <th onClick={() => onSort?.('parameters')} className="cursor-pointer hover:bg-gray-100">
-            Parámetros {getIndicator('parameters')}
+            Parámetros 
+            <span className="wiki-tooltip">
+              [?]
+              <span className="tooltip-text">
+                Cantidad estimada de variables ajustables (en billones &apos;B&apos;).
+              </span>
+            </span>
+            {getIndicator('parameters')}
           </th>
           <th onClick={() => onSort?.('mmlu_score')} className="cursor-pointer hover:bg-gray-100">
             MMLU 
-            <span className="wiki-tooltip" title="Nivel de conocimiento general">
+            <span className="wiki-tooltip">
               [?]
               <span className="tooltip-text">
-                Massive Multitask Language Understanding: Benchmark que mide el conocimiento general y resolución de problemas en 57 materias (STEM, Humanidades, etc.).
+                Massive Multitask Language Understanding: Benchmark que mide conocimiento general en 57 materias.
               </span>
             </span>
             {getIndicator('mmlu_score')}
           </th>
           <th onClick={() => onSort?.('context_window')} className="cursor-pointer hover:bg-gray-100">
-            Contexto {getIndicator('context_window')}
+            Contexto 
+            <span className="wiki-tooltip">
+              [?]
+              <span className="tooltip-text">
+                Capacidad máxima de tokens (texto) procesables simultáneamente.
+              </span>
+            </span>
+            {getIndicator('context_window')}
           </th>
           <th onClick={() => onSort?.('release_date')} className="cursor-pointer hover:bg-gray-100">
-            Lanzamiento {getIndicator('release_date')}
+            Lanzamiento 
+            <span className="wiki-tooltip">
+              [?]
+              <span className="tooltip-text">
+                Fecha oficial de publicación o disponibilidad general.
+              </span>
+            </span>
+            {getIndicator('release_date')}
           </th>
           <th style={{ textAlign: 'center' }}>Acción</th>
         </tr>

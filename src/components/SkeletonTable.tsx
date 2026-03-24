@@ -8,9 +8,10 @@ const SkeletonTable = () => {
       <thead>
         <tr>
           <th style={{ width: '40px' }}>#</th>
-          <th>Modelo</th>
+          <th className="text-left">Modelo</th>
           <th>Desarrollador</th>
           <th>Categoría</th>
+          <th>Licencia</th>
           <th>Parámetros</th>
           <th>MMLU</th>
           <th>Contexto</th>
@@ -22,13 +23,14 @@ const SkeletonTable = () => {
         {rows.map((_, i) => (
           <tr key={i}>
             <td><div className="skeleton-box h-3 w-4" /></td>
-            <td>
+            <td className="text-left">
               <div className="flex items-center gap-3">
                 <div className="skeleton-box h-10 w-10 border-0" />
                 <div className="skeleton-box h-4 w-32" />
               </div>
             </td>
             <td><div className="skeleton-box h-4 w-24" /></td>
+            <td><div className="skeleton-box h-4 w-20" /></td>
             <td><div className="skeleton-box h-4 w-20" /></td>
             <td><div className="skeleton-box h-4 w-12" /></td>
             <td><div className="skeleton-box h-5 w-10" /></td>
