@@ -6,62 +6,71 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 20px;
+  padding: 40px 20px;
   text-align: center;
   background-color: #ffffff;
   border: 1px dashed var(--border-color);
-  margin-top: 40px;
+  margin-top: 24px;
 }
 
 .error-code {
-  font-size: 120px;
-  font-weight: 900;
-  color: #eaecf0;
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--table-header-bg);
   line-height: 1;
-  margin-bottom: -40px;
-  user-select: none;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
 }
 
 .error-badge {
-  background: #333;
+  background: var(--foreground);
   color: #fff;
-  padding: 4px 12px;
+  padding: 2px 10px;
   font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  margin-bottom: 24px;
-  z-index: 1;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 16px;
 }
 
 .error-title {
-  font-size: 24px;
-  font-weight: 800;
-  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
   color: var(--foreground);
 }
 
 .error-message {
-  max-width: 500px;
-  margin: 0 auto 32px auto;
+  max-width: 450px;
+  margin: 0 auto 24px auto;
   color: var(--text-secondary);
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .technical-details {
-  background: #f8f9fa;
+  background: var(--sidebar-bg);
   border: 1px solid var(--border-color);
-  padding: 15px;
-  font-family: Consolas, monospace;
+  padding: 12px;
+  font-family: var(--font-mono);
   font-size: 11px;
   text-align: left;
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   color: #666;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 
 /* Category Detail View */
 .category-view .unified-header {
-  border-bottom: 3px solid var(--link-color);
+  border-bottom: 3px solid var(--wiki-blue);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+}
+
+.unified-header h1 {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 4px;
 }

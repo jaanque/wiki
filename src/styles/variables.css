@@ -1,13 +1,19 @@
 :root {
   --background: #ffffff;
-  --foreground: #202122; /* Pure Wiki High-Contrast Black */
-  --text-secondary: #4a4d50; /* Darker secondary text for AA compliance */
+  --foreground: #202122;
+  --text-secondary: #54595d;
   --sidebar-bg: #f8f9fa;
   --header-bg: #f8f9fa;
   --table-header-bg: #eaecf0;
+  --table-border: #a2a9b1;
+  --wiki-border: #a2a9b1;
   --border-color: #a2a9b1;
   --link-color: #0645ad;
-  --wiki-link: #ad0606;
-  --wiki-border: #a2a9b1;
+  --link-visited: #0b0080;
   --wiki-blue: #0645ad;
+  --adminer-blue: #326ea1;
+  --zebra-bg: #f8f9fa;
+  --hover-bg: #e8f2ff;
+  --font-main: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: "Consolas", "Monaco", "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", monospace;
 }
