@@ -1,6 +1,6 @@
-@import './variables.css';
-@import './reset.css';
-@import './utilities.css';
-@import './layout.css';
-@import './components.css';
-@import './pages.css';
+@import '../styles/variables.css';
+@import '../styles/reset.css';
+@import '../styles/utilities.css';
+@import '../styles/layout.css';
+@import '../styles/components.css';
+@import '../styles/pages.css';

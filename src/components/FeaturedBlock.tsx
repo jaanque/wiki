@@ -17,8 +17,6 @@ export default function FeaturedBlock({ model }: FeaturedBlockProps) {
           <h2 className="text-xl font-black tracking-tighter uppercase">{model.name}</h2>
           <div className="featured-meta text-xs">
             <span className="font-bold text-blue-700">{model.developer}</span>
-            <span className="mx-3">|</span>
-            <span className="uppercase tracking-widest opacity-60">{model.type}</span>
           </div>
         </div>
       </div>

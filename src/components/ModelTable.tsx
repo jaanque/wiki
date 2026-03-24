@@ -13,6 +13,7 @@ export default function ModelTable({ models }: ModelTableProps) {
           <th style={{ width: '40px' }}>#</th>
           <th>Modelo</th>
           <th>Desarrollador</th>
+          <th>Categoría</th>
           <th>Parámetros</th>
           <th>MMLU</th>
           <th>Contexto</th>
@@ -37,7 +38,23 @@ export default function ModelTable({ models }: ModelTableProps) {
             <td>
               <div className="flex flex-column">
                 <span className="font-bold text-gray-700">{model.developer}</span>
-                <span className="badge badge-text bg-gray-50 mt-1">{model.type}</span>
+              </div>
+            </td>
+            <td>
+              <div className="flex flex-wrap gap-1">
+                {model.model_categories && model.model_categories.length > 0 ? (
+                  model.model_categories.map((mc) => (
+                    <Link 
+                      key={mc.category.id} 
+                      href={`/category/${mc.category.slug}`}
+                      className="badge badge-text hover:bg-blue-100"
+                    >
+                      {mc.category.name}
+                    </Link>
+                  ))
+                ) : (
+                  <span className="text-gray-400 italic text-[10px]">Sin categoría</span>
+                )}
               </div>
             </td>
             <td>{model.parameters}</td>
