@@ -77,8 +77,10 @@ export default function SearchHeader() {
             onChange={(e) => setQuery(e.target.value)}
             className="search-input" 
             placeholder="Buscar modelo, creador o arquitectura..." 
+            aria-label="Buscar en la base de datos de IA"
+            aria-haspopup="listbox"
           />
-          <button className="search-button">
+          <button className="search-button" aria-label="Ejecutar búsqueda">
             {loading ? '...' : 'Buscar'}
           </button>
         </div>

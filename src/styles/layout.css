@@ -46,6 +46,7 @@
   padding-bottom: 2px;
 }
 
+/*
 .sidebar-list {
   list-style: none;
   padding: 0;
@@ -56,27 +57,39 @@
   margin-bottom: 2px;
 }
 
-.sidebar-list a {
-  display: block;
-  padding: 4px 12px; /* Classic tight padding */
+.sidebar-list li a {
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
   color: var(--link-color);
-  transition: none; /* No modern transitions */
-  border-radius: 0; /* Sharp corners */
   text-decoration: none;
+  font-size: 13px;
+  line-height: 1.4;
+  border-left: 3px solid transparent;
 }
 
-.sidebar-list a:hover {
-  background-color: #ffffff; /* Subtle highlight */
-  text-decoration: underline;
-  color: var(--link-color);
+.sidebar-list li a svg {
+  color: #72777d; 
+  flex-shrink: 0;
 }
 
-.sidebar-list a.active {
+.sidebar-list li a:hover {
   background-color: #ffffff;
-  color: var(--foreground) !important;
-  font-weight: 700;
-  border-right: 3px solid var(--wiki-blue); /* Active indicator */
+  text-decoration: underline;
+  border-left-color: #a2a9b1;
 }
+
+.sidebar-list li a.active {
+  font-weight: 700;
+  color: #000;
+  background-color: #ffffff;
+  border-left: 3px solid var(--wiki-blue);
+}
+
+.sidebar-list li a.active svg {
+  color: var(--wiki-blue);
+}
+*/
 
 .sidebar-count {
   float: right;

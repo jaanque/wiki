@@ -39,8 +39,8 @@ export default function RootLayout({
             <footer className="wiki-footer">
               <div className="content-inner">
                 <div className="footer-content">
-                  <p>AI_Wiki DB - {new Date().getFullYear()} | Directorio técnico de código abierto para desarrolladores e investigadores.</p>
-                  <div className="footer-links">
+                  <p>AI_Wiki DB - 2026 | Directorio técnico de código abierto para desarrolladores e investigadores.</p>
+                  <div className="footer-links font-bold">
                     <Link href="/legal">Aviso Legal</Link>
                     <Link href="/privacidad">Política de Privacidad</Link>
                     <Link href="/cookies">Configuración de Cookies</Link>
