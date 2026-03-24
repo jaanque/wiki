@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, Suspense } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { supabase } from '@/lib/supabase'
 import { useModels } from '@/hooks/useModels'
 import ModelTable from '@/components/ModelTable'
 import Pagination from '@/components/Pagination'
@@ -8,10 +9,33 @@ import FeaturedBlock from '@/components/FeaturedBlock'
 
 function HomeContent() {
   const [page, setPage] = useState(1)
-  const PAGE_SIZE = 5
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('')
+  const [categories, setCategories] = useState<{name: string, slug: string}[]>([])
+  const PAGE_SIZE = 10
   
-  const { models, featuredModel, loading, totalCount } = useModels(page, PAGE_SIZE)
+  const { models, featuredModel, loading, totalCount } = useModels(page, PAGE_SIZE, searchQuery, selectedCategory)
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
+
+  // Fetch categories for the filter dropdown
+  useEffect(() => {
+    const fetchCats = async () => {
+      const { data } = await supabase.from('categories').select('name, slug').order('name')
+      if (data) setCategories(data)
+    }
+    fetchCats()
+  }, [])
+
+  // Reset to page 1 on filter change
+  const handleSearch = (val: string) => {
+    setSearchQuery(val)
+    setPage(1)
+  }
+
+  const handleCategoryChange = (val: string) => {
+    setSelectedCategory(val)
+    setPage(1)
+  }
 
   return (
     <>
@@ -28,29 +52,63 @@ function HomeContent() {
         </p>
       </div>
 
-      {/* FEATURED MODEL SECTION - VERTICAL FLOW */}
-      {featuredModel && <FeaturedBlock model={featuredModel} />}
+      {/* FEATURED MODEL SECTION - Only show if not actively filtering or if one is found */}
+      {!loading && featuredModel && page === 1 && (
+        <div className="mb-12">
+          <FeaturedBlock model={featuredModel} />
+        </div>
+      )}
 
-      <div className="flex justify-between items-end mb-6 pb-2 border-b-2 border-wiki-border mt-16">
-        <h2 className="font-black text-xl uppercase tracking-tighter">Índice Completo de Modelos</h2>
-        <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wider bg-gray-50 px-3 py-1 border border-gray-200">
-          Mostrando {models.length} de {totalCount} entradas técnicas
+      <div className="flex justify-between items-center mb-2 text-[10px] uppercase font-black tracking-widest text-gray-400 pl-1">
+        Registros Técnicos
+      </div>
+
+      {/* TECHNICAL FILTER TOOLBAR */}
+      <div className="technical-toolbar">
+        <div className="toolbar-search">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input 
+            type="text"
+            placeholder="Buscar modelo..."
+            value={searchQuery}
+            onChange={(e) => handleSearch(e.target.value)}
+            className="toolbar-input"
+          />
+        </div>
+
+        <div className="toolbar-item">
+          <label>Categoría:</label>
+          <select 
+            value={selectedCategory}
+            onChange={(e) => handleCategoryChange(e.target.value)}
+            className="toolbar-select"
+          >
+            <option value="">Todas</option>
+            {categories.map(cat => (
+              <option key={cat.slug} value={cat.slug}>{cat.name}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="toolbar-item">
+          <span className="toolbar-results">DB_RESULTS: {totalCount}</span>
         </div>
       </div>
       
       {loading ? (
-        <div className="py-20 text-center text-gray-400 italic">Consultando base de datos técnica...</div>
+        <div className="py-20 text-center text-gray-400 italic font-mono text-xs">EJECUTANDO QUERY SQL...</div>
       ) : (
         <ModelTable models={models} />
       )}
 
       {/* PAGINATION */}
-      <Pagination 
-        currentPage={page} 
-        totalPages={totalPages} 
-        onPageChange={(p) => setPage(p)} 
-      />
-
+      {!loading && totalPages > 1 && (
+        <Pagination 
+          currentPage={page} 
+          totalPages={totalPages} 
+          onPageChange={(p) => setPage(p)} 
+        />
+      )}
     </>
   );
 }

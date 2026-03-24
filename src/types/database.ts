@@ -22,5 +22,6 @@ export interface Model {
   release_date: string;
   description: string;
   documentation_url?: string;
+  logo_url?: string;
   model_categories?: ModelCategory[];
 }

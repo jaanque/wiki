@@ -82,3 +82,4 @@
 /* Layout Utilities Cont. */
 .overflow-hidden { overflow: hidden; }
 .overflow-y-auto { overflow-y: auto; }
+.no-drag { -webkit-user-drag: none; }

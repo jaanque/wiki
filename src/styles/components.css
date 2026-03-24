@@ -100,14 +100,14 @@
 
 /* Logos & Icons */
 .logo-table {
-  width: 24px;
-  height: 24px;
-  background-color: #f8f9fa;
-  border: 1px solid var(--border-color);
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--link-color);
   flex-shrink: 0;
@@ -507,4 +507,91 @@ input:focus-visible {
   background-color: #fff;
   border-color: var(--wiki-blue);
   color: var(--wiki-blue);
+}
+
+/* Technical Toolbar Styling */
+.technical-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  background-color: #f8f9fa;
+  border: 1px solid var(--border-color);
+  border-bottom: none;
+  font-family: var(--font-mono);
+}
+
+.toolbar-item {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 12px;
+}
+
+.toolbar-item:last-child {
+  border-right: none;
+}
+
+.toolbar-item label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #72777d;
+  margin-right: 8px;
+  letter-spacing: 0.05em;
+}
+
+.toolbar-search {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+  border-right: 1px solid var(--border-color);
+}
+
+.toolbar-search svg {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a2a9b1;
+}
+
+.toolbar-input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  padding-left: 32px;
+  padding-right: 10px;
+  font-size: 11px;
+  color: #000;
+  outline: none;
+  transition: background-color 0.1s ease;
+}
+
+.toolbar-input:focus {
+  background-color: #ffffff;
+}
+
+.toolbar-select {
+  font-size: 11px;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  height: 22px;
+  padding: 0 4px;
+  color: #000;
+  outline: none;
+  min-width: 120px;
+}
+
+.toolbar-select:focus {
+  border-color: var(--wiki-blue);
+}
+
+.toolbar-results {
+  font-size: 10px;
+  font-weight: 700;
+  color: #72777d;
+  background-color: #ffffff;
+  padding: 2px 6px;
+  border: 1px solid var(--border-color);
 }

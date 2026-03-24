@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Model } from '@/types/database'
 
 interface ModelTableProps {
@@ -28,7 +29,19 @@ export default function ModelTable({ models }: ModelTableProps) {
             <td>
               <div className="flex items-center gap-3">
                 <div className="logo-table">
-                  {model.name.substring(0, 1)}
+                  {model.logo_url ? (
+                    <Image 
+                      src={model.logo_url} 
+                      alt={model.name} 
+                      width={40} 
+                      height={40} 
+                      unoptimized={true}
+                      draggable={false}
+                      className="max-w-full max-h-full object-contain p-1 no-drag" 
+                    />
+                  ) : (
+                    model.name.substring(0, 1)
+                  )}
                 </div>
                 <Link href={`/ai/${model.slug}`} className="font-bold hover:underline">
                   {model.name}
