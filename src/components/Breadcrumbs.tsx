@@ -14,41 +14,31 @@ export default function Breadcrumbs() {
   
   // Generar los breadcrumbs basados en la ruta
   return (
-    <nav className="breadcrumb text-[11px] text-gray-500 flex items-center gap-1 py-1 px-3 bg-gray-50 border-b border-wiki-border mb-4">
-      <Link href="/" className="text-wiki-blue">Portada</Link>
-      <span className="text-gray-400">»</span>
+    <nav className="breadcrumb text-[10px] uppercase font-bold tracking-wider text-gray-400 flex items-center gap-2 py-3 mb-6 border-b border-gray-100">
+      <Link href="/" className="text-blue-600 hover:text-blue-800 transition-colors">PORTADA</Link>
       
       {segments.map((segment, index) => {
         const url = `/${segments.slice(0, index + 1).join('/')}`
         const isLast = index === segments.length - 1
         
-        // Formatear el nombre del segmento (ej: "recent" -> "Recientes")
         let label = segment.charAt(0).toUpperCase() + segment.slice(1)
         if (segment === 'recent') label = 'Modelos Recientes'
         if (segment === 'ai') label = 'Directorio AI'
         if (segment === 'random') label = 'Modelo Aleatorio'
         if (segment === 'category') label = 'Categoría'
 
-        // Si es el slug, podemos intentar formatearlo o dejarlo como está
-        if (isLast && segments[0] === 'ai') {
-          label = segment.toUpperCase()
-        }
-        if (isLast && segments[0] === 'category') {
-          // Si estamos en una categoría, el label es el nombre de la categoría
-          label = segment.charAt(0).toUpperCase() + segment.slice(1)
-        }
+        if (isLast && segments[0] === 'ai') label = segment.toUpperCase()
+        if (isLast && segments[0] === 'category') label = segment.charAt(0).toUpperCase() + segment.slice(1)
 
         return (
-          <span key={url} className="flex items-center gap-2">
+          <div key={url} className="flex items-center gap-2">
+            <span className="text-gray-300 font-normal">/</span>
             {isLast ? (
-              <span className="font-bold text-gray-900">{decodeURIComponent(label)}</span>
+              <span className="text-gray-900">{decodeURIComponent(label)}</span>
             ) : (
-              <>
-                <Link href={url} className="hover:underline">{label}</Link>
-                <span className="text-gray-300">»</span>
-              </>
+              <Link href={url} className="text-blue-600 hover:text-blue-800 transition-colors">{label}</Link>
             )}
-          </span>
+          </div>
         )
       })}
     </nav>

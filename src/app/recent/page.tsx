@@ -46,18 +46,21 @@ export default function RecentPage() {
 
   return (
     <div className="recent-container">
-      <div className="unified-header" style={{ padding: '24px' }}>
-        <h1 className="mb-3">Modelos Recientes</h1>
-        <p className="text-sm text-gray-600">
-          Esta sección muestra las últimas incorporaciones a nuestra base de datos técnica. 
-          Aquí encontrarás modelos lanzados o indexados en los últimos 30 días, permitiéndote 
-          estar al tanto de las innovaciones más recientes en el ecosistema de IA.
+      <div className="wiki-notice mb-6">
+        <strong>Novedades del Índice:</strong> Estás consultando las últimas incorporaciones técnica al directorio de IA. Aquí se listan los modelos indexados o actualizados en los últimos 30 días, permitiendo seguir el pulso de los lanzamientos más recientes en el ecosistema.
+      </div>
+
+      <div className="mb-8">
+        <h1 className="text-2xl font-black tracking-tighter uppercase mb-2">
+          Modelos Recientes
+        </h1>
+        <p className="text-gray-500 text-sm italic">
+          CRONOLOGÍA TÉCNICA: Innovaciones y lanzamientos de los últimos 30 días.
         </p>
       </div>
 
-      <div className="flex justify-between items-center mb-4 pb-2 border-b-2 border-wiki-border mt-8">
-        <h2 className="font-bold">Novedades de los últimos 30 días</h2>
-        <span className="text-sm text-gray-500">{models.length} modelos encontrados</span>
+      <div className="flex justify-between items-center mb-2 text-[10px] uppercase font-black tracking-widest text-gray-400 pl-1">
+        Últimos 30 Días (DB_TOTAL: {models.length})
       </div>
 
       {loading ? (

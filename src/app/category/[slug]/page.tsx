@@ -5,12 +5,24 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { Model, Category } from '@/types/database'
 import ModelTable from '@/components/ModelTable'
+import SkeletonTable from '@/components/SkeletonTable'
 
 export default function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
   const [category, setCategory] = useState<Category | null>(null)
   const [models, setModels] = useState<Model[]>([])
   const [loading, setLoading] = useState(true)
+  const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' }>({
+    key: 'mmlu_score',
+    direction: 'desc'
+  });
+
+  const handleSort = (key: string) => {
+    setSortConfig(prev => ({
+      key,
+      direction: prev.key === key && prev.direction === 'desc' ? 'asc' : 'desc'
+    }));
+  };
 
   useEffect(() => {
     async function fetchCategoryData() {
@@ -28,10 +40,7 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
         const { data: modelData, error } = await supabase
           .from('model_categories')
           .select(`
-            models (
-              id, name, slug, developer, type, mmlu_score, release_date,
-              parameters, context_window, license
-            )
+            models (*)
           `)
           .eq('category_id', catData.id)
 
@@ -40,6 +49,24 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
             const m = Array.isArray(item.models) ? item.models[0] : item.models
             return m
           }).filter((m): m is Model => m !== null)
+
+          // Ordenar en JS ya que el dataset por categoría suele ser pequeño
+          formattedModels.sort((a, b) => {
+            const valA = a[sortConfig.key as keyof Model];
+            const valB = b[sortConfig.key as keyof Model];
+            
+            if (valA === null || valA === undefined) return 1;
+            if (valB === null || valB === undefined) return -1;
+            
+            if (typeof valA === 'number' && typeof valB === 'number') {
+              return sortConfig.direction === 'asc' ? valA - valB : valB - valA;
+            }
+            
+            return sortConfig.direction === 'asc' 
+              ? String(valA).localeCompare(String(valB))
+              : String(valB).localeCompare(String(valA));
+          });
+
           setModels(formattedModels)
         }
       }
@@ -47,11 +74,11 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
     }
 
     fetchCategoryData()
-  }, [slug])
+  }, [slug, sortConfig])
 
-  if (loading) return <div className="py-20 text-center text-gray-400 italic">Filtrando directorio técnico...</div>
+  if (loading && !category) return <div className="py-20 text-center text-gray-400 italic">Filtrando directorio técnico...</div>
 
-  if (!category) {
+  if (!category && !loading) {
     return (
       <div className="not-found-container">
         <div className="error-code">404</div>
@@ -80,25 +107,32 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
 
   return (
     <div className="category-view content-inner">
-      <div className="wiki-notice mb-8" role="region" aria-label="Información de categoría">
-        <strong>Clasificación Técnica:</strong> Estás navegando por el archivo especializado para <strong>{category.name}</strong>. En esta sección se agrupan todos los modelos que comparten esta arquitectura o modalidad específica.
+      <div className="wiki-notice mb-6" role="region" aria-label="Información de categoría">
+        <strong>Clasificación Técnica:</strong> Estás navegando por el archivo especializado para <strong>{category?.name}</strong>. En esta sección se agrupan todos los modelos que comparten esta arquitectura o modalidad específica, permitiendo un análisis comparativo de benchmark y parámetros.
       </div>
 
-      <header className="mb-10">
-        <h1 className="text-3xl font-black tracking-tighter uppercase mb-2">
-          Índice Técnico: {category.name}
+      <div className="mb-8">
+        <h1 className="text-2xl font-black tracking-tighter uppercase mb-2">
+          Índice Técnico: {category?.name}
         </h1>
-        <p className="text-gray-500 text-sm italic">{category.description}</p>
-      </header>
-
-      <div className="flex justify-between items-end mb-6 pb-2 border-b-2 border-wiki-border">
-        <h2 className="font-black text-xl uppercase tracking-tighter">Modelos en esta sección</h2>
-        <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wider bg-gray-50 px-3 py-1 border border-gray-200">
-          Mostrando {models.length} entradas registradas
-        </div>
+        <p className="text-gray-500 text-sm italic">{category?.description}</p>
       </div>
 
-      <ModelTable models={models} />
+      <div className="flex justify-between items-center mb-2 text-[10px] uppercase font-black tracking-widest text-gray-400 pl-1">
+        Categoría: {category?.name} (DB_COUNT: {models.length})
+      </div>
+
+      {loading ? (
+        <SkeletonTable />
+      ) : (
+        <div className="fade-in">
+          <ModelTable 
+            models={models} 
+            sortConfig={sortConfig}
+            onSort={handleSort}
+          />
+        </div>
+      )}
     </div>
   )
 }

@@ -139,9 +139,6 @@ export default function ModelTable({ models, sortConfig, onSort }: ModelTablePro
                   <Link href={`/ai/${model.slug}`} className="font-bold hover:underline">
                     {model.name}
                   </Link>
-                  {model.release_date && (new Date().getTime() - new Date(model.release_date).getTime()) < 14 * 24 * 60 * 60 * 1000 && (
-                    <span className="badge-new">NUEVO</span>
-                  )}
                 </div>
               </div>
             </td>
@@ -175,7 +172,14 @@ export default function ModelTable({ models, sortConfig, onSort }: ModelTablePro
             <td>{model.parameters}</td>
             <td className="font-mono text-blue-700 font-bold">{model.mmlu_score ? `${model.mmlu_score}%` : 'N/A'}</td>
             <td>{model.context_window}</td>
-            <td className="text-sm">{model.release_date}</td>
+            <td className="text-sm">
+              <div className="flex flex-col items-center gap-1">
+                {model.release_date}
+                {model.release_date && (new Date().getTime() - new Date(model.release_date).getTime()) < 14 * 24 * 60 * 60 * 1000 && (
+                  <span className="badge-new" style={{ margin: 0 }}>NUEVO</span>
+                )}
+              </div>
+            </td>
             <td style={{ textAlign: 'center', width: '120px' }}>
               <Link href={`/ai/${model.slug}`} className="btn-wiki">
                 VER WIKI »
