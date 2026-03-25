@@ -5,6 +5,7 @@ import "./globals.css";
 import SearchHeader from "@/components/SearchHeader";
 import Sidebar from "@/components/Sidebar";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import GlobalChatWrapper from "@/components/GlobalChatWrapper";
 
 export const metadata: Metadata = {
   title: "AI_Wiki DB | Base de datos técnica de Modelos IA",
@@ -51,6 +52,9 @@ export default function RootLayout({
             </footer>
           </main>
         </div>
+        
+        {/* GLOBAL CHAT MODAL */}
+        <GlobalChatWrapper />
       </body>
     </html>
   );

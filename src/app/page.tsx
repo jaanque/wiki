@@ -5,7 +5,6 @@ import { supabase } from '@/lib/supabase'
 import { useModels } from '@/hooks/useModels'
 import ModelTable from '@/components/ModelTable'
 import Pagination from '@/components/Pagination'
-import FeaturedBlock from '@/components/FeaturedBlock'
 import SkeletonTable from '@/components/SkeletonTable'
 
 function HomeContent() {
@@ -19,7 +18,7 @@ function HomeContent() {
   const [categories, setCategories] = useState<{name: string, slug: string}[]>([])
   const PAGE_SIZE = 10
   
-  const { models, featuredModel, loading, totalCount } = useModels(
+  const { models, loading, totalCount } = useModels(
     page, 
     PAGE_SIZE, 
     searchQuery, 
@@ -72,15 +71,47 @@ function HomeContent() {
         </p>
       </div>
 
-      {/* FEATURED MODEL SECTION - Only show if not actively filtering or if one is found */}
-      {!loading && featuredModel && page === 1 && (
-        <div className="mb-12">
-          <FeaturedBlock model={featuredModel} />
-        </div>
+      {/* MINI-CHAT HERO SECTION */}
+      {!loading && page === 1 && (
+        <section className="intent-section" aria-labelledby="intent-title">
+          <h2 id="intent-title" className="intent-title">¿Qué quieres hacer hoy?</h2>
+          
+          <div className="ask-ai-trigger" onClick={() => window.dispatchEvent(new CustomEvent('open-mini-chat'))}>
+            <div className="ask-ai-placeholder flex items-center gap-2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Consultar al asistente IA sobre modelos o benchmarks...
+            </div>
+            <button className="ask-ai-btn">Preguntar a la IA</button>
+          </div>
+
+          <div className="quick-starters">
+            <button 
+              className="quick-starter-btn"
+              onClick={() => window.dispatchEvent(new CustomEvent('open-mini-chat-with-prompt', { detail: { prompt: 'Compara los modelos más potentes de la base de datos' } }))}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+              Comparar potencias
+            </button>
+            <button 
+              className="quick-starter-btn"
+              onClick={() => window.dispatchEvent(new CustomEvent('open-mini-chat-with-prompt', { detail: { prompt: '¿Qué modelos de visión recomendarías?' } }))}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              Modelos de Visión
+            </button>
+            <button 
+              className="quick-starter-btn"
+              onClick={() => window.dispatchEvent(new CustomEvent('open-mini-chat-with-prompt', { detail: { prompt: '¿Cuáles son los modelos añadidos más recientemente?' } }))}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Últimos lanzamientos
+            </button>
+          </div>
+        </section>
       )}
 
-      <div className="flex justify-between items-center mb-2 text-[10px] uppercase font-black tracking-widest text-gray-400 pl-1">
-        Registros Técnicos
+      <div id="models-table" className="flex justify-between items-center mb-2 text-[10px] uppercase font-black tracking-widest text-gray-400 pl-1">
+        Índice de Registros Técnicos
       </div>
 
       {/* TECHNICAL FILTER TOOLBAR */}

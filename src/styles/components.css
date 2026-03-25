@@ -409,9 +409,15 @@
   padding: 0;
 }
 
-.sidebar-list li a {
+.sidebar-list li a,
+.sidebar-list li button {
   display: flex !important;
   align-items: center !important;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
   padding: 6px 14px;
   color: var(--link-color);
   text-decoration: none;
@@ -421,10 +427,12 @@
   transition: none; /* Instant feedback */
 }
 
-.sidebar-list li a:hover {
+.sidebar-list li a:hover,
+.sidebar-list li button:hover {
   background-color: #f8f9fa;
   text-decoration: underline;
   border-left-color: #a2a9b1; /* Intermediate state */
+  color: var(--wiki-blue);
 }
 
 .sidebar-list li a.active {
@@ -434,7 +442,8 @@
   border-left: 4px solid #2563eb; /* Prominent indicator bar */
 }
 
-.sidebar-list li a svg {
+.sidebar-list li a svg,
+.sidebar-list li button svg {
   color: #72777d;
   flex-shrink: 0;
   margin-right: 8px !important;

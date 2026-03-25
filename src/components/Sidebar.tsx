@@ -129,6 +129,26 @@ export default function Sidebar() {
           </li>
           <li>
             <Link 
+              href="/compare" 
+              className={`${pathname === '/compare' ? 'active' : ''} flex items-center`}
+              aria-current={pathname === '/compare' ? 'page' : undefined}
+              title="Comparar múltiples modelos cara a cara"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h.01"/><path d="M7 20h.01"/><path d="M17 20h.01"/><path d="M12 16V4"/><path d="M8 8V4h8v4"/><path d="M3 16h18v4H3z"/></svg>
+              <span>Comparador</span>
+            </Link>
+          </li>
+          <li>
+            <button 
+              onClick={() => window.dispatchEvent(new CustomEvent('open-mini-chat'))}
+              title="Hablar con el asistente técnico de IA"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>Hablar con la IA</span>
+            </button>
+          </li>
+          <li>
+            <Link 
               href="/docs" 
               className="flex items-center"
               title="Ver documentación técnica del proyecto"
