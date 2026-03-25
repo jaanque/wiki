@@ -44,7 +44,7 @@ export default function MiniChat({ isOpen, onClose, initialPrompt }: MiniChatPro
         throw new Error(data.error || 'API error')
       }
 
-      const aiContent = data.choices?.[0]?.message?.content || 'Error: Respuesta vacía del servidor.'
+      const aiContent = data.content || 'Error: Respuesta vacía del servidor.'
       
       setMessages(prev => [...prev, { role: 'assistant', content: aiContent }])
     } catch (error) {

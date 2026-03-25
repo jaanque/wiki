@@ -1,9 +1,30 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { z } from 'zod';
+
+// SECURITY: Define strict schema for chat requests
+const chatRequestSchema = z.object({
+  messages: z.array(z.object({
+    role: z.enum(['user', 'assistant']),
+    content: z.string().min(1).max(2000)
+  })).min(1).max(10)
+});
 
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json();
+    const body = await req.json();
+    
+    // Validate request structure with Zod
+    const validation = chatRequestSchema.safeParse(body);
+    
+    if (!validation.success) {
+      console.error('Zod Validation Failed:', JSON.stringify(validation.error.format(), null, 2));
+      return NextResponse.json({ 
+        error: 'Petición inválida o límites de datos excedidos.'
+      }, { status: 400 });
+    }
+
+    const { messages } = validation.data;
     const apiKey = process.env.GROQ_API_KEY;
 
     if (!apiKey) {
@@ -16,7 +37,16 @@ export async function POST(req: Request) {
       .select('name, developer, type, description, mmlu_score, gsm8k_score, humaneval_score')
       .limit(20);
 
-    const knowledgeBase = models?.map(m =>
+    interface KnowledgeBaseModel {
+      name: string;
+      developer: string;
+      description: string;
+      mmlu_score: number | null;
+      gsm8k_score: number | null;
+      humaneval_score: number | null;
+    }
+
+    const knowledgeBase = (models as unknown as KnowledgeBaseModel[])?.map((m: KnowledgeBaseModel) =>
       `- ${m.name} (por ${m.developer}): ${m.description}. Benchmarks: MMLU ${m.mmlu_score}%, GSM8K ${m.gsm8k_score}%, HumanEval ${m.humaneval_score}%.`
     ).join('\n') || 'No hay modelos registrados actualmente en el índice.';
 
@@ -65,21 +95,17 @@ REGLAS CRÍTICAS:
     });
 
     if (!response.ok) {
-      let errorData;
-      try {
-        errorData = await response.json();
-      } catch {
-        errorData = { error: { message: 'Failed to parse error response' } };
-      }
-      console.log('API Key present:', !!apiKey);
+      const errorData = await response.json().catch(() => ({}));
       console.error('Groq API error detail:', errorData);
       return NextResponse.json({ 
-        error: errorData.error?.message || 'Error desconocido de la API de Groq' 
-      }, { status: response.status });
+        error: 'Error de comunicación con el servicio de IA. Inténtalo de nuevo más tarde.' 
+      }, { status: 502 }); // Use 502 for upstream failures
     }
 
     const data = await response.json();
-    return NextResponse.json(data);
+    return NextResponse.json({ 
+      content: data.choices?.[0]?.message?.content || 'Sin respuesta del modelo.' 
+    });
   } catch (error) {
     console.error('Chat API route error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
