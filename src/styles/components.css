@@ -198,6 +198,22 @@
   text-decoration: underline;
 }
 
+.v4-nav-btn-disabled {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #a2a9b1 !important;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: not-allowed;
+  opacity: 0.6;
+  user-select: none;
+}
+
+.v4-nav-btn-disabled svg {
+  color: #a2a9b1 !important;
+}
+
 .v4-login-btn {
   background: #fff;
   border: 1px solid var(--border-color);
@@ -552,6 +568,19 @@
   margin-bottom: 1.5rem;
 }
 
+.intent-section {
+  padding: 30px 24px;
+  background: linear-gradient(135deg, #fafafa 0%, #f0f7ff 100%);
+  border: 1px solid var(--wiki-border);
+  border-top: 4px solid var(--wiki-blue);
+  margin-bottom: 30px;
+  position: relative;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
 .stat-box {
   display: flex;
   flex-direction: column; /* Vertical box inside a horizontal grid */
@@ -863,6 +892,29 @@
   color: #2563eb;
 }
 
+.sidebar-item-disabled {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 6px 14px;
+  color: #a2a9b1 !important;
+  font-size: 13px;
+  line-height: 1.4;
+  border-left: 3px solid transparent;
+  cursor: not-allowed;
+  opacity: 0.6;
+  user-select: none;
+  text-decoration: none !important;
+}
+
+.sidebar-item-disabled svg {
+  color: #a2a9b1 !important;
+  flex-shrink: 0;
+  margin-right: 8px !important;
+  width: 14px;
+  height: 14px;
+}
+
 /* High-visibility focus state for accessibility */
 a:focus-visible, 
 button:focus-visible,
@@ -956,10 +1008,12 @@ input:focus-visible {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  background-color: #f8f9fa;
+  background-color: #ffffff;
   border: 1px solid var(--border-color);
   border-bottom: none;
   font-family: var(--font-mono);
+  margin-bottom: 8px; /* Spacing to prevent overlap */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
 }
 
 .toolbar-item {
@@ -1028,15 +1082,15 @@ input:focus-visible {
   background: transparent;
   border: none;
   padding-left: 32px;
-  padding-right: 10px;
+  padding-right: 32px; /* For clear button */
   font-size: 11px;
   color: #000;
   outline: none;
-  transition: background-color 0.1s ease;
+  transition: background-color 0.15s ease;
 }
 
 .toolbar-input:focus {
-  background-color: #ffffff;
+  background-color: #f0f7ff;
 }
 
 .toolbar-select {
@@ -1056,11 +1110,14 @@ input:focus-visible {
 
 .toolbar-results {
   font-size: 10px;
-  font-weight: 700;
-  color: #72777d;
-  background-color: #ffffff;
-  padding: 2px 6px;
-  border: 1px solid var(--border-color);
+  font-weight: 800;
+  color: var(--wiki-blue);
+  background-color: #f0f7ff;
+  padding: 2px 8px;
+  border: 1px solid #c8dcf0;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.02);
 }
 
 .badge-new {
@@ -1120,8 +1177,18 @@ th.cursor-pointer:active {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-soft {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.ai-pulse {
+  animation: pulse-soft 2s infinite ease-in-out;
 }
 
 /* Tooltip System */
@@ -1144,7 +1211,7 @@ th.cursor-pointer:active {
   padding: 10px 14px;
   border-radius: 2px;
   position: absolute;
-  z-index: 1000;
+  z-index: 11000;
   bottom: 140%;
   left: 50%;
   transform: translateX(-50%);
@@ -1176,6 +1243,21 @@ th.cursor-pointer:active {
   transform: translateX(-50%) translateY(-5px);
 }
 
+.wiki-tooltip .tooltip-text.tooltip-down {
+  bottom: auto;
+  top: 140%;
+}
+
+.wiki-tooltip:hover .tooltip-text.tooltip-down {
+  transform: translateX(-50%) translateY(5px);
+}
+
+.wiki-tooltip .tooltip-text.tooltip-down::after {
+  top: auto;
+  bottom: 100%;
+  border-color: transparent transparent #202122 transparent;
+}
+
 /* Semantic Color Coding for Tags */
 .tag-license-open {
   background-color: #f0fff4 !important;
@@ -1202,7 +1284,7 @@ th.cursor-pointer:active {
 }
 
 /* Sticky Header for Data Grid */
-.data-grid thead th { position: sticky; top: 0; background: white; z-index: 5; box-shadow: 0 1px 0 var(--wiki-border); }
+.data-grid thead th { position: sticky; top: 48px; background: white; z-index: 20; box-shadow: 0 1px 0 var(--wiki-border); }
 
 /* Smooth Row Hover */
 .data-grid tbody tr { transition: background-color 0.1s; }
