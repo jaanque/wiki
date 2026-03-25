@@ -16,7 +16,9 @@ function HomeContent() {
     direction: 'desc'
   });
   const [categories, setCategories] = useState<{name: string, slug: string}[]>([])
-  const PAGE_SIZE = 10
+  const PAGE_SIZE = 10;
+
+
   
   const { models, loading, totalCount } = useModels(
     page, 
@@ -149,7 +151,7 @@ function HomeContent() {
       {loading ? (
         <SkeletonTable />
       ) : (
-        <div className="fade-in">
+        <div className="fade-in table-container">
           <ModelTable 
             models={models} 
             sortConfig={sortConfig}
@@ -157,6 +159,7 @@ function HomeContent() {
           />
         </div>
       )}
+
 
       {/* PAGINATION */}
       {!loading && totalPages > 1 && (
