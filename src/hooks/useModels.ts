@@ -11,7 +11,6 @@ export function useModels(
   sortOrder: 'asc' | 'desc' = 'desc'
 ) {
   const [models, setModels] = useState<Model[]>([])
-  const [featuredModel, setFeaturedModel] = useState<Model | null>(null)
   const [loading, setLoading] = useState(true)
   const [totalCount, setTotalCount] = useState(0)
 
@@ -43,11 +42,6 @@ export function useModels(
       if (data) {
         setModels(data as unknown as Model[])
         setTotalCount(count || 0)
-        
-        // Featured logic (usually first model of current set)
-        if (page === 1 && data.length > 0) {
-          setFeaturedModel(data[0] as unknown as Model)
-        }
       } else {
         setModels([])
         setTotalCount(0)
@@ -58,5 +52,5 @@ export function useModels(
     fetchData()
   }, [page, pageSize, searchTerm, categorySlug, sortBy, sortOrder])
 
-  return { models, featuredModel, loading, totalCount }
+  return { models, loading, totalCount }
 }
