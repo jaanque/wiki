@@ -8,7 +8,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import GlobalChatWrapper from "@/components/GlobalChatWrapper";
 
 export const metadata: Metadata = {
-  title: "AI_Wiki DB | Base de datos técnica de Modelos IA",
+  title: "wikIA | Base de datos técnica de Modelos IA",
   description: "Directorio técnico enciclopédico de Modelos de Inteligencia Artificial, Hardware y conceptos clave.",
 };
 
@@ -34,13 +34,12 @@ export default function RootLayout({
             <div className="content-inner">
               <Breadcrumbs />
               {children}
-              
             </div>
             
             <footer className="wiki-footer">
               <div className="content-inner">
                 <div className="footer-content">
-                  <p>AI_Wiki DB - 2026 | Directorio técnico de código abierto para desarrolladores e investigadores.</p>
+                  <p>wikIA - 2026 | Directorio técnico de código abierto para desarrolladores e investigadores.</p>
                   <div className="footer-links font-bold">
                     <Link href="/legal">Aviso Legal</Link>
                     <Link href="/privacidad">Política de Privacidad</Link>

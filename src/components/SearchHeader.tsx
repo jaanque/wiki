@@ -7,7 +7,7 @@ import { supabase } from '@/lib/supabase'
 
 import { Model } from '@/types/database'
 
-type SearchResult = Pick<Model, 'id' | 'name' | 'slug' | 'developer'>
+type SearchResult = Pick<Model, 'id' | 'name' | 'slug' | 'developer' | 'logo_url'>
 
 export default function SearchHeader() {
   const router = useRouter()
@@ -32,7 +32,7 @@ export default function SearchHeader() {
     if (searchQuery.length > 1) {
       const { data } = await supabase
         .from('models')
-        .select('id, name, slug, developer')
+        .select('id, name, slug, developer, logo_url')
         .or(`name.ilike.%${searchQuery}%,developer.ilike.%${searchQuery}%`)
         .limit(6)
       
@@ -41,7 +41,7 @@ export default function SearchHeader() {
       // Recommendations when empty search
       const { data } = await supabase
         .from('models')
-        .select('id, name, slug, developer')
+        .select('id, name, slug, developer, logo_url')
         .order('release_date', { ascending: false })
         .limit(4)
       setResults(data || [])
@@ -65,7 +65,7 @@ export default function SearchHeader() {
   return (
     <header className="top-header">
       <Link href="/" className="logo-link">
-        <div className="logo-mono">[ AI_Wiki DB ]</div>
+        <div className="text-xl font-black uppercase tracking-tighter">[ wikIA ]</div>
       </Link>
       
       <div className="search-wrapper" ref={dropdownRef}>
@@ -94,14 +94,25 @@ export default function SearchHeader() {
               results.map((res) => (
                 <div 
                   key={res.id} 
-                  className="dropdown-item"
+                  className="dropdown-item flex items-center gap-3 p-3 hover:bg-slate-50 cursor-pointer border-b border-wiki-border last:border-0 transition-colors group"
                   onClick={() => handleSelect(res.slug)}
                 >
-                  <div className="item-main">
-                    <span className="item-name">{res.name}</span>
-                    <span className="item-developer uppercase font-mono">{res.developer}</span>
+                  <div className="search-result-logo w-8 h-8 flex-shrink-0 bg-white border border-gray-100 flex items-center justify-center overflow-hidden">
+                    {res.logo_url ? (
+                      <img src={res.logo_url} alt="" className="w-full h-full object-contain" />
+                    ) : (
+                      <span className="text-[10px] uppercase font-bold text-gray-400">{res.name[0]}</span>
+                    )}
                   </div>
-                  <div className="item-type">TECHNICAL FICHA »</div>
+                  <div className="flex-1 flex justify-between items-center min-w-0">
+                    <div className="item-main flex flex-col min-w-0">
+                      <span className="item-name font-black text-sm tracking-tight truncate group-hover:text-blue-700 transition-colors">{res.name}</span>
+                      <span className="item-developer text-[10px] uppercase font-bold text-gray-400 font-mono truncate">{res.developer}</span>
+                    </div>
+                    <div className="item-type text-[9px] font-black bg-gray-100 px-1.5 py-0.5 border border-gray-200 uppercase text-gray-400 group-hover:bg-blue-100 group-hover:text-blue-600 group-hover:border-blue-200 transition-all ml-2 whitespace-nowrap">
+                      TÉCNICO »
+                    </div>
+                  </div>
                 </div>
               ))
             ) : (

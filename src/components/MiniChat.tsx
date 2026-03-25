@@ -15,7 +15,7 @@ interface MiniChatProps {
 
 export default function MiniChat({ isOpen, onClose, initialPrompt }: MiniChatProps) {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: '¡Hola! Soy el asistente técnico de AI_Wiki. ¿En qué información sobre modelos puedo ayudarte hoy?' }
+    { role: 'assistant', content: '¡Hola! Soy el asistente técnico de wikIA. ¿En qué información sobre modelos puedo ayudarte hoy?' }
   ])
   const [input, setInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
@@ -88,7 +88,7 @@ export default function MiniChat({ isOpen, onClose, initialPrompt }: MiniChatPro
     <div className="mini-chat-overlay" onClick={onClose}>
       <div className="mini-chat-window" onClick={e => e.stopPropagation()}>
         <header className="chat-header">
-          <h3>AI_WIKI_ASSISTANT_TERMINAL</h3>
+          <h3>WIKIA_ASSISTANT_TERMINAL</h3>
           <button className="close-chat" onClick={onClose}>×</button>
         </header>
 

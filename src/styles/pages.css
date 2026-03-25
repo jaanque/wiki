@@ -241,7 +241,7 @@
 }
 
 .intent-section::before {
-  content: "ASISTENTE_IA_WIKI";
+  content: "ASISTENTE_wikIA";
   position: absolute;
   top: 8px;
   right: 12px;
@@ -476,6 +476,87 @@
   background: var(--table-header-bg) !important;
   border-right: 2px solid var(--wiki-border);
   box-shadow: none;
+}
+
+.compare-model-logo {
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid var(--wiki-border);
+  overflow: hidden;
+  padding: 4px;
+}
+
+.compare-model-logo img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+.compare-matrix td.is-best {
+  background-color: rgba(46, 160, 67, 0.08); /* Subtle GitHub-like green */
+  border-color: rgba(46, 160, 67, 0.2);
+}
+
+.selection-chip {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.selection-chip:hover {
+  background-color: #f8fafc;
+}
+
+.selection-chip button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2px;
+  margin-right: -4px;
+}
+
+.empty-compare-state {
+  border-radius: 4px;
+}
+
+.compare-search-dropdown {
+  max-height: 450px;
+  overflow-y: auto;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.compare-dropdown-item {
+  border-left: 4px solid transparent;
+}
+
+.compare-dropdown-item:hover {
+  border-left-color: var(--wiki-blue);
+}
+
+.search-result-logo {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  background: white;
+  border: 1px solid var(--wiki-border);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 3px;
+}
+
+.search-result-logo img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
 }
 
 @media (max-width: 640px) {

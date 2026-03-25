@@ -20,7 +20,7 @@ export async function POST(req: Request) {
       `- ${m.name} (por ${m.developer}): ${m.description}. Benchmarks: MMLU ${m.mmlu_score}%, GSM8K ${m.gsm8k_score}%, HumanEval ${m.humaneval_score}%.`
     ).join('\n') || 'No hay modelos registrados actualmente en el índice.';
 
-    const systemPrompt = `Eres el asistente técnico de AI_Wiki.
+    const systemPrompt = `Eres el asistente técnico de wikIA.
 TU CONOCIMIENTO SE LIMITA EXCLUSIVAMENTE A ESTOS MODELOS DE NUESTRA BASE DE DATOS:
 ${knowledgeBase}
 

@@ -6,6 +6,7 @@ import Link from 'next/link';
 interface ModelComparisonData {
   id: number;
   name: string;
+  slug: string;
   developer: string;
   logo_url?: string;
   release_date: string;
@@ -29,7 +30,7 @@ interface Props {
 export default function ComparisonTable({ models, onRemove }: Props) {
   if (models.length === 0) {
     return (
-      <div className="p-12 text-center border-2 border-dashed border-gray-200 text-gray-400 italic">
+      <div className="p-12 text-center border-2 border-dashed border-gray-200 text-gray-400 italic" role="status">
         No hay modelos seleccionados para comparar.
       </div>
     );
@@ -41,9 +42,9 @@ export default function ComparisonTable({ models, onRemove }: Props) {
     { label: 'Parámetros', key: 'specs.parameters' },
     { label: 'Context Window', key: 'specs.context_window' },
     { label: 'Licencia', key: 'specs.license' },
-    { label: 'MMLU Score', key: 'mmlu_score', suffix: '%' },
-    { label: 'GSM8K Score', key: 'gsm8k_score', suffix: '%' },
-    { label: 'HumanEval', key: 'humaneval_score', suffix: '%' },
+    { label: 'MMLU Score', key: 'mmlu_score', suffix: '%', isBenchmark: true },
+    { label: 'GSM8K Score', key: 'gsm8k_score', suffix: '%', isBenchmark: true },
+    { label: 'HumanEval', key: 'humaneval_score', suffix: '%', isBenchmark: true },
   ];
 
   const getValue = (model: ModelComparisonData, key: string) => {
@@ -54,24 +55,38 @@ export default function ComparisonTable({ models, onRemove }: Props) {
     return (model as unknown as Record<string, string | number>)[key] || 'N/A';
   };
 
+  // Find the highest value for a benchmark row
+  const getBestInRow = (key: string) => {
+    const values = models.map(m => {
+      const val = getValue(m, key);
+      return typeof val === 'number' ? val : parseFloat(val.toString()) || 0;
+    });
+    return Math.max(...values);
+  };
+
   return (
-    <div className="compare-table-wrapper overflow-x-auto">
+    <div className="compare-table-wrapper overflow-x-auto" role="region" aria-label="Tabla comparativa de modelos IA">
       <table className="compare-matrix w-full border-collapse">
         <thead>
           <tr>
-            <th className="sticky left-0 bg-gray-50 z-10 text-left border p-4 min-w-[150px]">Atributo</th>
+            <th scope="col" className="sticky left-0 bg-gray-50 z-10 text-left border p-4 min-w-[150px]">Atributo</th>
             {models.map(model => (
-              <th key={model.id} className="border p-4 min-w-[200px] bg-white text-center">
+              <th key={model.id} scope="col" className="border p-4 min-w-[200px] bg-white text-center">
                 <div className="flex flex-col items-center gap-2">
-                  <div className="w-10 h-10 bg-gray-100 flex items-center justify-center font-bold text-blue-600 border">
-                    {model.name[0]}
+                  <div className="compare-model-logo" aria-hidden="true">
+                    {model.logo_url ? (
+                      <img src={model.logo_url} alt="" />
+                    ) : (
+                      <span className="text-lg uppercase font-black">{model.name[0]}</span>
+                    )}
                   </div>
-                  <Link href={`/ai/${model.name.toLowerCase().replace(/ /g, '-')}`} className="font-bold text-blue-700 hover:underline">
+                  <Link href={`/ai/${model.slug}`} className="font-bold text-blue-700 hover:underline tracking-tight">
                     {model.name}
                   </Link>
                   <button 
                     onClick={() => onRemove(model.id)}
-                    className="text-[10px] uppercase font-bold text-red-500 hover:text-red-700"
+                    className="text-[10px] uppercase font-bold text-red-500 hover:text-red-700 p-1"
+                    aria-label={`Quitar ${model.name} de la comparación`}
                   >
                     [Quitar]
                   </button>
@@ -81,18 +96,33 @@ export default function ComparisonTable({ models, onRemove }: Props) {
           </tr>
         </thead>
         <tbody>
-          {rows.map(row => (
-            <tr key={row.key} className="hover:bg-gray-50 transition-colors">
-              <td className="sticky left-0 bg-gray-50 z-10 font-bold border p-3 text-xs uppercase text-gray-500">
-                {row.label}
-              </td>
-              {models.map(model => (
-                <td key={model.id} className="border p-4 text-center text-sm">
-                  {getValue(model, row.key)}{row.suffix ? row.suffix : ''}
-                </td>
-              ))}
-            </tr>
-          ))}
+          {rows.map(row => {
+            const bestValue = row.isBenchmark ? getBestInRow(row.key) : null;
+            
+            return (
+              <tr key={row.key} className="hover:bg-gray-50 transition-colors">
+                <th scope="row" className="sticky left-0 bg-gray-50 z-10 font-bold border p-3 text-xs uppercase text-gray-500 text-left">
+                  {row.label}
+                </th>
+                {models.map(model => {
+                  const val = getValue(model, row.key);
+                  const isBest = row.isBenchmark && val === bestValue && bestValue > 0;
+                  
+                  return (
+                    <td 
+                      key={model.id} 
+                      className={`border p-4 text-center text-sm ${isBest ? 'is-best' : ''}`}
+                    >
+                      <span className={isBest ? 'font-black' : ''}>
+                        {val}{row.suffix ? row.suffix : ''}
+                      </span>
+                      {isBest && <span className="sr-only"> (Mejor valor en esta categoría)</span>}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

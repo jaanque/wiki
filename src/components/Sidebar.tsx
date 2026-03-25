@@ -134,7 +134,7 @@ export default function Sidebar() {
               aria-current={pathname === '/compare' ? 'page' : undefined}
               title="Comparar múltiples modelos cara a cara"
             >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h.01"/><path d="M7 20h.01"/><path d="M17 20h.01"/><path d="M12 16V4"/><path d="M8 8V4h8v4"/><path d="M3 16h18v4H3z"/></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m16 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="m2 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="M7 21h10"/><path d="M12 21V3"/><path d="M3 7h18"/></svg>
               <span>Comparador</span>
             </Link>
           </li>

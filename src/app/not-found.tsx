@@ -13,7 +13,7 @@ export default function NotFound() {
       
       <div className="technical-details">
         <div><strong>Status:</strong> HTTP_404_NOT_FOUND</div>
-        <div><strong>Log:</strong> Request failed on AI_Wiki_Central_Index</div>
+        <div><strong>Log:</strong> Request failed on wikIA_Central_Index</div>
       </div>
 
       <div className="flex gap-4 mt-8">
