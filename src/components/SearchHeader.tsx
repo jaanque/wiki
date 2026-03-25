@@ -115,15 +115,25 @@ export default function SearchHeader() {
     <header className="v4-header">
       <div className="v4-header-inner">
         
-        <Link href="/" className="v4-logo-link">
-          <div className="v4-logo-container">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="v4-logo-book">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
-            <span className="v4-logo-text">wikIA</span>
-          </div>
-        </Link>
+        <div className="v4-logo-wrapper">
+          <button 
+            className="v4-mobile-menu-btn" 
+            onClick={() => document.body.classList.toggle('sidebar-open')}
+            aria-label="Abrir menú"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          
+          <Link href="/" className="v4-logo-link" onClick={() => document.body.classList.remove('sidebar-open')}>
+            <div className="v4-logo-container">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="v4-logo-book">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+              <span className="v4-logo-text">wikIA</span>
+            </div>
+          </Link>
+        </div>
         
         <div 
           className="v4-search-wrapper" 
