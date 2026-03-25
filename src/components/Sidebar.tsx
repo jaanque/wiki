@@ -58,10 +58,21 @@ export default function Sidebar() {
               href="/" 
               className={`${pathname === '/' ? 'active' : ''} flex items-center`}
               aria-current={pathname === '/' ? 'page' : undefined}
-              title="Ir a la página de inicio (Portada)"
+              title="Ir a la portada de wikIA"
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
               <span>Portada</span>
+            </Link>
+          </li>
+          <li>
+            <Link 
+              href="/explore" 
+              className={`${pathname === '/explore' ? 'active' : ''} flex items-center`}
+              aria-current={pathname === '/explore' ? 'page' : undefined}
+              title="Explorar el directorio completo de modelos"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <span>Explorar</span>
             </Link>
           </li>
           <li>
@@ -84,6 +95,28 @@ export default function Sidebar() {
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M12 8v4"/><path d="M12 16h.01"/><circle cx="8" cy="12" r=".5"/><circle cx="16" cy="12" r=".5"/></svg>
               <span>Modelo Aleatorio</span>
+            </Link>
+          </li>
+          <li>
+            <Link 
+              href="/ranking" 
+              className={`${pathname === '/ranking' ? 'active' : ''} flex items-center`}
+              aria-current={pathname === '/ranking' ? 'page' : undefined}
+              title="Ver clasificación de modelos por rendimiento técnico"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <span>Clasificación</span>
+            </Link>
+          </li>
+          <li>
+            <Link 
+              href="/history" 
+              className={`${pathname === '/history' ? 'active' : ''} flex items-center`}
+              aria-current={pathname === '/history' ? 'page' : undefined}
+              title="Explorar la historia de la Inteligencia Artificial"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><path d="M3.3 7a9 9 0 1 1 0 10"/></svg>
+              <span>Historia</span>
             </Link>
           </li>
         </ul>
@@ -136,6 +169,17 @@ export default function Sidebar() {
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m16 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="m2 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="M7 21h10"/><path d="M12 21V3"/><path d="M3 7h18"/></svg>
               <span>Comparador</span>
+            </Link>
+          </li>
+          <li>
+            <Link 
+              href="/dictionary" 
+              className={`${pathname === '/dictionary' ? 'active' : ''} flex items-center`}
+              aria-current={pathname === '/dictionary' ? 'page' : undefined}
+              title="Glosario técnico de términos de IA"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M8 7h6"/><path d="M8 11h8"/></svg>
+              <span>Diccionario</span>
             </Link>
           </li>
           <li>

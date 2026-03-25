@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface ModelComparisonData {
   id: number;
@@ -73,9 +74,15 @@ export default function ComparisonTable({ models, onRemove }: Props) {
             {models.map(model => (
               <th key={model.id} scope="col" className="border p-4 min-w-[200px] bg-white text-center">
                 <div className="flex flex-col items-center gap-2">
-                  <div className="compare-model-logo" aria-hidden="true">
+                  <div className="compare-model-logo relative" aria-hidden="true">
                     {model.logo_url ? (
-                      <img src={model.logo_url} alt="" />
+                      <Image 
+                        src={model.logo_url} 
+                        alt="" 
+                        width={40} 
+                        height={40} 
+                        className="w-full h-full object-contain" 
+                      />
                     ) : (
                       <span className="text-lg uppercase font-black">{model.name[0]}</span>
                     )}

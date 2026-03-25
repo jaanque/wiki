@@ -23,7 +23,8 @@ export default function Breadcrumbs() {
         
         let label = segment.charAt(0).toUpperCase() + segment.slice(1)
         if (segment === 'recent') label = 'Modelos Recientes'
-        if (segment === 'ai') label = 'Directorio AI'
+        if (segment === 'ai') label = 'EXPLORAR'
+        if (segment === 'explore') label = 'EXPLORAR'
         if (segment === 'random') label = 'Modelo Aleatorio'
         if (segment === 'category') label = 'Categoría'
 

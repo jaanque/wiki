@@ -14,8 +14,7 @@
 }
 
 .logo-mono {
-  font-family: var(--font-mono);
-  font-weight: bold;
+  font-weight: 900;
   font-size: 14px;
   color: #000;
   border: 1px solid var(--border-color);
@@ -769,3 +768,14 @@ th.cursor-pointer:active {
   color: #8250df !important;
   border-color: #e9d8fd !important;
 }
+
+/* Sticky Header for Data Grid */
+.data-grid thead th { position: sticky; top: 0; background: white; z-index: 5; box-shadow: 0 1px 0 var(--wiki-border); }
+
+/* Smooth Row Hover */
+.data-grid tbody tr { transition: background-color 0.1s; }
+.data-grid tbody tr:hover { background-color: #fcfcfc !important; }
+
+/* Result Count Flash */
+.toolbar-results { transition: all 0.3s; }
+.toolbar-results.updating { opacity: 0.5; color: var(--wiki-blue); }

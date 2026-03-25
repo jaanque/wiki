@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, Suspense, useRef } from 'react'
+import Image from 'next/image'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import ComparisonTable from '@/components/ComparisonTable'
@@ -237,9 +238,15 @@ function CompareContent() {
                   className="compare-dropdown-item p-4 hover:bg-blue-50 cursor-pointer flex justify-between items-center border-b border-gray-100 last:border-0 transition-colors group"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="search-result-logo w-9 h-9 flex-shrink-0 bg-white border-2 border-gray-100 flex items-center justify-center overflow-hidden">
+                    <div className="search-result-logo w-9 h-9 shrink-0 bg-white border-2 border-gray-100 flex items-center justify-center overflow-hidden relative">
                       {result.logo_url ? (
-                        <img src={result.logo_url} alt="" className="w-full h-full object-contain" />
+                        <Image 
+                          src={result.logo_url} 
+                          alt="" 
+                          width={36} 
+                          height={36} 
+                          className="w-full h-full object-contain" 
+                        />
                       ) : (
                         <span className="text-[12px] uppercase font-bold text-gray-400">{result.name[0]}</span>
                       )}

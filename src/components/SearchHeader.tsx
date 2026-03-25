@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { supabase } from '@/lib/supabase'
 
 import { Model } from '@/types/database'
@@ -65,7 +66,7 @@ export default function SearchHeader() {
   return (
     <header className="top-header">
       <Link href="/" className="logo-link">
-        <div className="text-xl font-black uppercase tracking-tighter">[ wikIA ]</div>
+        <div className="logo-mono text-[13px] uppercase tracking-wider">[ wikIA ]</div>
       </Link>
       
       <div className="search-wrapper" ref={dropdownRef}>
@@ -97,9 +98,15 @@ export default function SearchHeader() {
                   className="dropdown-item flex items-center gap-3 p-3 hover:bg-slate-50 cursor-pointer border-b border-wiki-border last:border-0 transition-colors group"
                   onClick={() => handleSelect(res.slug)}
                 >
-                  <div className="search-result-logo w-8 h-8 flex-shrink-0 bg-white border border-gray-100 flex items-center justify-center overflow-hidden">
+                  <div className="search-result-logo w-8 h-8 shrink-0 bg-white border border-gray-100 flex items-center justify-center overflow-hidden relative">
                     {res.logo_url ? (
-                      <img src={res.logo_url} alt="" className="w-full h-full object-contain" />
+                      <Image 
+                        src={res.logo_url} 
+                        alt="" 
+                        width={32} 
+                        height={32} 
+                        className="w-full h-full object-contain" 
+                      />
                     ) : (
                       <span className="text-[10px] uppercase font-bold text-gray-400">{res.name[0]}</span>
                     )}
