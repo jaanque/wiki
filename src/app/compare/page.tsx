@@ -217,7 +217,7 @@ function CompareContent() {
           <input 
             type="text" 
             placeholder="Escribe el nombre de un modelo para añadirlo..."
-            className="toolbar-input !h-12 !pl-12 !text-base focus:!bg-white"
+            className="toolbar-input h-12! pl-12! text-base! focus:bg-white!"
             value={searchQuery}
             onFocus={() => setIsOpen(true)}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -271,22 +271,32 @@ function CompareContent() {
       ) : selectedIds.length > 0 ? (
         <ComparisonTable models={compareData} onRemove={removeModel} />
       ) : (
-        <div className="empty-compare-state border border-gray-200 pt-12 pb-24 px-12 text-center bg-gray-50/30 rounded-sm overflow-hidden">
+        <div className="empty-compare-state border border-gray-200 pt-16 pb-24 px-12 text-center bg-gray-50/30 rounded-sm">
           <svg className="mx-auto mb-4 text-gray-300" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="m16 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="m2 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="M7 21h10"/><path d="M12 21V3"/><path d="M3 7h18"/></svg>
           <h3 className="text-xl font-black uppercase tracking-tight mb-2">Comienza una comparativa</h3>
           <p className="text-gray-500 text-sm italic mb-12 max-w-md mx-auto">
             Busca modelos arriba o prueba una de estas comparativas sugeridas por la comunidad técnica:
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto w-full flex flex-col gap-4">
             {suggestions.map((s, i) => (
               <button 
                 key={i}
                 onClick={() => setSelectedIds(s.ids)}
-                className="p-5 bg-white border border-gray-300 hover:border-blue-600 hover:bg-white transition-all text-left group shadow-sm hover:shadow-md"
+                className="group flex flex-col sm:flex-row sm:items-center justify-between p-5 bg-white border border-gray-200 hover:border-blue-600 transition-all text-left shadow-sm hover:shadow-lg hover:-translate-y-0.5 rounded-sm"
               >
-                <div className="text-[10px] font-black text-blue-600 uppercase mb-1">{s.label}</div>
-                <div className="font-bold text-sm group-hover:text-blue-700 transition-colors">{s.name}</div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-10 grow">
+                  <div className="text-[9px] font-black text-blue-600 uppercase tracking-[0.2em] bg-blue-50/30 px-4 py-2 border border-blue-100/50 min-w-[200px] text-center sm:text-left shadow-inner">
+                    {s.label}
+                  </div>
+                  <div className="font-bold text-lg tracking-tight group-hover:text-blue-700 transition-colors">
+                    {s.name}
+                  </div>
+                </div>
+                <div className="mt-4 sm:mt-0 text-[10px] font-black text-gray-300 group-hover:text-blue-500 transition-all uppercase tracking-widest flex items-center gap-2">
+                  <span>Ejecutar Análisis</span> 
+                  <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
+                </div>
               </button>
             ))}
           </div>
