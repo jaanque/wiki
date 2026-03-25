@@ -166,11 +166,6 @@ function CompareContent() {
     setSelectedIds(prev => prev.filter(mid => mid !== id))
   }
 
-  const suggestions = [
-    { name: 'Llama 3.3 vs GPT-4o', ids: [1, 2], label: 'Líderes de la industria' },
-    { name: 'Claude 3.5 vs Gemini 1.5', ids: [3, 4], label: 'Razonamiento avanzado' },
-    { name: 'DeepSeek vs Qwen 2.5', ids: [5, 6], label: 'Open Source Champions' },
-  ]
 
   return (
     <div className="compare-container max-w-7xl mx-auto px-4 py-12">
@@ -271,35 +266,12 @@ function CompareContent() {
       ) : selectedIds.length > 0 ? (
         <ComparisonTable models={compareData} onRemove={removeModel} />
       ) : (
-        <div className="empty-compare-state border border-gray-200 pt-16 pb-24 px-12 text-center bg-gray-50/30 rounded-sm">
-          <svg className="mx-auto mb-4 text-gray-300" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="m16 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="m2 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="M7 21h10"/><path d="M12 21V3"/><path d="M3 7h18"/></svg>
-          <h3 className="text-xl font-black uppercase tracking-tight mb-2">Comienza una comparativa</h3>
-          <p className="text-gray-500 text-sm italic mb-12 max-w-md mx-auto">
-            Busca modelos arriba o prueba una de estas comparativas sugeridas por la comunidad técnica:
+        <div className="empty-compare-state border border-gray-200 pt-32 pb-48 px-12 text-center bg-gray-50/30 rounded-sm">
+          <svg className="mx-auto mb-8 text-gray-300 opacity-50" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="m16 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="m2 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="M7 21h10"/><path d="M12 21V3"/><path d="M3 7h18"/></svg>
+          <h3 className="text-2xl font-black uppercase tracking-tight mb-4 text-gray-400">Comienza una comparativa</h3>
+          <p className="text-gray-400 text-sm italic max-w-md mx-auto">
+            Utilice la barra de búsqueda superior para añadir los modelos que desea analizar en la matriz técnica.
           </p>
-          
-          <div className="max-w-4xl mx-auto w-full flex flex-col gap-4">
-            {suggestions.map((s, i) => (
-              <button 
-                key={i}
-                onClick={() => setSelectedIds(s.ids)}
-                className="group flex flex-col sm:flex-row sm:items-center justify-between p-5 bg-white border border-gray-200 hover:border-blue-600 transition-all text-left shadow-sm hover:shadow-lg hover:-translate-y-0.5 rounded-sm"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-10 grow">
-                  <div className="text-[9px] font-black text-blue-600 uppercase tracking-[0.2em] bg-blue-50/30 px-4 py-2 border border-blue-100/50 min-w-[200px] text-center sm:text-left shadow-inner">
-                    {s.label}
-                  </div>
-                  <div className="font-bold text-lg tracking-tight group-hover:text-blue-700 transition-colors">
-                    {s.name}
-                  </div>
-                </div>
-                <div className="mt-4 sm:mt-0 text-[10px] font-black text-gray-300 group-hover:text-blue-500 transition-all uppercase tracking-widest flex items-center gap-2">
-                  <span>Ejecutar Análisis</span> 
-                  <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
-                </div>
-              </button>
-            ))}
-          </div>
         </div>
       )}
     </div>
