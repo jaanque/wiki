@@ -49,9 +49,7 @@ export default function MiniChat({ isOpen, onClose, initialPrompt }: MiniChatPro
       setMessages(prev => [...prev, { role: 'assistant', content: aiContent }])
     } catch (error) {
       console.error('Chat error:', error)
-      const errorMsg = (error instanceof Error && error.message.includes('401'))
-        ? 'ERROR_AUTH: La API Key de Groq parece no ser válida.' 
-        : 'ERROR_SISTEMA: No se ha podido establecer contacto con el núcleo. Revisa la consola para más detalles.';
+      const errorMsg = 'Lo siento, ha ocurrido un error al procesar tu mensaje. Por favor, inténtalo de nuevo más tarde.';
       
       setMessages(prev => [...prev, { role: 'assistant', content: errorMsg }])
     } finally {

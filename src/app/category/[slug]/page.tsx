@@ -38,36 +38,13 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
         setCategory(catData)
         
         const { data: modelData, error } = await supabase
-          .from('model_categories')
-          .select(`
-            models (*)
-          `)
-          .eq('category_id', catData.id)
+          .from('models')
+          .select('*, model_categories!inner(category_id)')
+          .eq('model_categories.category_id', catData.id)
+          .order(sortConfig.key, { ascending: sortConfig.direction === 'asc' })
 
         if (!error && modelData) {
-          const formattedModels = (modelData as unknown as { models: Model | Model[] }[]).map(item => {
-            const m = Array.isArray(item.models) ? item.models[0] : item.models
-            return m
-          }).filter((m): m is Model => m !== null)
-
-          // Ordenar en JS ya que el dataset por categoría suele ser pequeño
-          formattedModels.sort((a, b) => {
-            const valA = a[sortConfig.key as keyof Model];
-            const valB = b[sortConfig.key as keyof Model];
-            
-            if (valA === null || valA === undefined) return 1;
-            if (valB === null || valB === undefined) return -1;
-            
-            if (typeof valA === 'number' && typeof valB === 'number') {
-              return sortConfig.direction === 'asc' ? valA - valB : valB - valA;
-            }
-            
-            return sortConfig.direction === 'asc' 
-              ? String(valA).localeCompare(String(valB))
-              : String(valB).localeCompare(String(valA));
-          });
-
-          setModels(formattedModels)
+          setModels(modelData as unknown as Model[])
         }
       }
       setLoading(false)
