@@ -30,6 +30,23 @@ REGLAS CRÍTICAS:
 3. Ayuda al usuario a elegir basándote en los benchmarks y descripciones proporcionadas.
 4. Sé conciso y profesional.`;
 
+    // SECURITY: Sanitize messages and enforce resource limits
+    // 1. Only allow 'user' and 'assistant' roles from the client.
+    // 2. Limit to the last 10 messages to prevent token exhaustion.
+    // 3. Cap each message at 2000 characters to prevent DDoS/Memory issues.
+    const MAX_MESSAGES = 10;
+    const MAX_CHARS = 2000;
+
+    const sanitizedMessages = Array.isArray(messages) 
+      ? messages
+          .slice(-MAX_MESSAGES) // Keep only recent history
+          .filter(m => m && typeof m === 'object' && (m.role === 'user' || m.role === 'assistant'))
+          .map(m => ({ 
+            role: m.role, 
+            content: String(m.content || '').substring(0, MAX_CHARS) // Truncate long inputs
+          }))
+      : [];
+
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -40,9 +57,9 @@ REGLAS CRÍTICAS:
         model: 'llama-3.3-70b-versatile',
         messages: [
           { role: 'system', content: systemPrompt },
-          ...messages
+          ...sanitizedMessages
         ],
-        temperature: 0.3, // Lower temperature for more grounded responses
+        temperature: 0.3,
         max_tokens: 1024,
       }),
     });
