@@ -1,25 +1,283 @@
-/* Navigation & Headers - Adminer style */
-.top-header {
-  height: 40px; /* Thinner header for density */
+/* v4 REFINED NAVIGATION (MATCHES SYSTEM) */
+.v4-header {
+  height: 48px;
   background-color: var(--header-bg);
   border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.v4-header-inner {
+  width: 100%;
+  padding: 0 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10px;
-  flex-shrink: 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
 }
 
-.logo-mono {
-  font-weight: 900;
-  font-size: 14px;
-  color: #000;
+.v4-logo-book {
+  color: var(--link-color);
+  flex-shrink: 0;
+}
+
+.v4-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  color: var(--foreground);
+}
+
+.v4-logo-container:hover {
+  opacity: 0.8;
+}
+
+.v4-logo-text {
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+}
+
+.v4-logo-badge {
+  background: var(--foreground);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 1px 4px;
+  font-family: var(--font-mono);
+}
+
+.v4-search-wrapper {
+  flex: 0 1 420px;
+  margin: 0 20px;
+  position: relative;
+}
+
+.v4-search-container {
+  background: #fff;
   border: 1px solid var(--border-color);
-  padding: 1px 6px;
-  background: #ffffff;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  transition: all 0.15s ease-out;
+}
+
+.v4-search-container:focus-within {
+  border-color: var(--wiki-blue);
+  background-color: #fff;
+  outline: none;
+}
+
+.v4-search-icon {
+  color: var(--text-secondary);
+  display: flex;
+}
+
+.v4-search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0 8px;
+  font-size: 13px;
+  color: var(--foreground);
+  outline: none;
+}
+
+.v4-search-hint kbd {
+  background: var(--sidebar-bg);
+  border: 1px solid var(--border-color);
+  padding: 1px 4px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  border-radius: 2px;
+}
+
+.v4-utility-nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.v4-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--link-color);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.v4-nav-btn:hover {
+  text-decoration: underline;
+}
+
+.v4-login-btn {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  padding: 3px 12px;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.v4-login-btn:hover {
+  background: #fff;
+  border-color: var(--wiki-blue);
+  color: var(--wiki-blue);
+}
+
+/* Dropdown Refinement */
+.v4-search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  margin-top: -1px;
+  z-index: 10000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.v4-dropdown-header {
+  background: var(--table-header-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 6px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.v4-status-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--wiki-blue);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.v4-dropdown-body {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.v4-result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.v4-result-item:hover,
+.v4-result-item.active {
+  background: var(--hover-bg);
+}
+
+.v4-result-item.active {
+  border-left: 3px solid var(--wiki-blue);
+}
+
+.v4-result-logo {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.v4-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 2px;
+}
+
+.v4-logo-placeholder {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.v4-result-name {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--link-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.v4-result-id {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-secondary);
+}
+
+.v4-result-dev {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.v4-result-tag {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--table-border);
+}
+
+.v4-no-results {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.v4-dropdown-footer {
+  padding: 8px 12px;
+  background: var(--sidebar-bg);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.v4-footer-keys kbd {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  padding: 1px 3px;
+  margin-right: 4px;
+}
+
+@keyframes v4-fade-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-scale {
+  animation: v4-fade-in 0.15s ease-out forwards;
 }
 
 /* Breadcrumbs */
@@ -779,3 +1037,5 @@ th.cursor-pointer:active {
 /* Result Count Flash */
 .toolbar-results { transition: all 0.3s; }
 .toolbar-results.updating { opacity: 0.5; color: var(--wiki-blue); }
+
+/* V4_SYNC_HASH: 1774441500 */
