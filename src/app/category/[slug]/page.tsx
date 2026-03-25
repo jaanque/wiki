@@ -39,7 +39,7 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
         
         const { data: modelData, error } = await supabase
           .from('models')
-          .select('*, model_categories!inner(category_id)')
+          .select('*, model_categories!inner(category:categories!inner(id, name, slug))')
           .eq('model_categories.category_id', catData.id)
           .order(sortConfig.key, { ascending: sortConfig.direction === 'asc' })
 

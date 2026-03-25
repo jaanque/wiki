@@ -174,12 +174,12 @@ function CompareContent() {
 
   return (
     <div className="compare-container max-w-7xl mx-auto px-4 py-12">
-      <div className="compare-header mb-12">
-        <h1 className="text-4xl font-black uppercase tracking-tighter mb-4 flex items-center gap-3">
-          <span className="bg-slate-900 text-white px-2 py-1">Comparador</span>
-          <span className="text-gray-300">Técnico</span>
+      <div className="compare-header mb-8 pb-4 border-b border-gray-200">
+        <h1 className="text-3xl font-black uppercase tracking-tighter mb-2 flex items-center gap-3">
+          <span className="text-blue-600">Comparador</span>
+          <span className="text-gray-400">Técnico</span>
         </h1>
-        <p className="text-gray-500 font-mono text-xs uppercase tracking-widest border-l-4 border-blue-600 pl-4 py-1">
+        <p className="text-gray-500 font-mono text-[10px] uppercase tracking-widest border-l-4 border-blue-600 pl-4 py-1">
           Base de Datos de Inteligencia Artificial / Matrix de Benchmarks
         </p>
       </div>
@@ -189,11 +189,11 @@ function CompareContent() {
         <div className="flex flex-wrap items-center gap-3 mb-8 animate-in fade-in slide-in-from-top-2 duration-300">
           <span className="text-[10px] font-black uppercase text-gray-400 tracking-wider">Seleccionados:</span>
           {compareData.map(model => (
-            <div key={model.id} className="selection-chip flex items-center h-8 px-3 bg-white border-2 border-slate-900 shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:translate-x-px hover:translate-y-px hover:shadow-none transition-all cursor-default">
-              <span className="text-[11px] font-bold mr-2">{model.name}</span>
+            <div key={model.id} className="selection-chip flex items-center h-8 px-3 bg-white border border-blue-600 text-blue-700 font-bold hover:bg-blue-50 transition-all cursor-default">
+              <span className="text-[11px] mr-2">{model.name}</span>
               <button 
                 onClick={() => removeModel(model.id)}
-                className="text-gray-400 hover:text-red-600 font-black text-sm transition-colors leading-none"
+                className="text-blue-400 hover:text-red-600 font-black text-sm transition-colors leading-none"
                 title="Quitar"
               >
                 ×
@@ -201,7 +201,7 @@ function CompareContent() {
             </div>
           ))}
           {selectedIds.length < 4 && (
-            <div className="h-8 px-3 border-2 border-dashed border-gray-300 text-gray-400 text-[10px] font-bold uppercase flex items-center bg-gray-50/50">
+            <div className="h-8 px-3 border border-dashed border-gray-300 text-gray-400 text-[10px] font-bold uppercase flex items-center bg-gray-50/50">
               + Añadir {4 - selectedIds.length}
             </div>
           )}
@@ -209,42 +209,39 @@ function CompareContent() {
       )}
 
       {/* SEARCH TOOLBAR */}
-      <div className="compare-toolbar bg-white border-2 border-slate-900 p-6 shadow-[8px_8px_0_0_rgba(0,0,0,1)] mb-12 relative z-50">
-        <div className="relative" ref={dropdownRef}>
+      <div className="technical-toolbar border-b border-gray-200 mb-8 z-50">
+        <div className="toolbar-search border-r-0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+          </svg>
           <input 
             type="text" 
             placeholder="Escribe el nombre de un modelo para añadirlo..."
-            className="w-full h-14 bg-gray-50 border-2 border-slate-900 px-6 font-bold text-lg focus:outline-none focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all"
+            className="toolbar-input !h-12 !pl-12 !text-base focus:!bg-white"
             value={searchQuery}
-            onFocus={() => {
-              setIsOpen(true)
-              if (searchQuery === '') {
-                // Trigger fetch for recommendations
-                setSearchQuery('')
-              }
-            }}
+            onFocus={() => setIsOpen(true)}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
 
           {isOpen && searchResults.length > 0 && (
-            <div className="compare-search-dropdown absolute top-full left-0 right-0 z-50 bg-white border-2 border-slate-900 border-t-0 shadow-[8px_8px_0_0_rgba(0,0,0,1)] mt-[-2px]">
-              <div className="p-3 bg-gray-50 border-b-2 border-slate-900 text-[10px] font-black uppercase text-gray-400 tracking-widest">
+            <div className="compare-search-dropdown absolute top-full left-0 right-0 z-50 bg-white border border-gray-300 -mt-px shadow-xl">
+              <div className="p-2 bg-gray-50 border-b border-gray-200 text-[10px] font-black uppercase text-gray-400 tracking-widest">
                 {searchQuery.length > 0 ? 'Resultados Técnicos' : 'Recomendaciones Pro'}
               </div>
               {searchResults.map(result => (
                 <div 
                   key={result.id}
                   onClick={() => addModel(result.id)}
-                  className="compare-dropdown-item p-4 hover:bg-blue-50 cursor-pointer flex justify-between items-center border-b border-gray-100 last:border-0 transition-colors group"
+                  className="compare-dropdown-item p-3 hover:bg-blue-50 cursor-pointer flex justify-between items-center border-b border-gray-100 last:border-0 transition-colors group"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="search-result-logo w-9 h-9 shrink-0 bg-white border-2 border-gray-100 flex items-center justify-center overflow-hidden relative">
+                    <div className="search-result-logo w-8 h-8 shrink-0 bg-white border border-gray-200 flex items-center justify-center overflow-hidden relative">
                       {result.logo_url ? (
                         <Image 
                           src={result.logo_url} 
                           alt="" 
-                          width={36} 
-                          height={36} 
+                          width={32} 
+                          height={32} 
                           className="w-full h-full object-contain" 
                         />
                       ) : (
@@ -252,13 +249,13 @@ function CompareContent() {
                       )}
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-black text-base tracking-tight group-hover:text-blue-700 transition-colors leading-tight">{result.name}</span>
-                      <span className="text-[11px] uppercase font-bold text-gray-400 group-hover:text-gray-500 transition-colors font-mono">{result.developer}</span>
+                      <span className="font-bold text-base tracking-tight group-hover:text-blue-700 transition-colors leading-tight">{result.name}</span>
+                      <span className="text-[10px] uppercase font-bold text-gray-400 group-hover:text-gray-500 transition-colors font-mono">{result.developer}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-black bg-slate-900 text-white px-2 py-1 uppercase group-hover:bg-blue-600 transition-all whitespace-nowrap">
-                      AÑADIR + »
+                    <span className="text-[10px] font-bold bg-blue-600 text-white px-2 py-1 uppercase transition-all whitespace-nowrap">
+                      Añadir
                     </span>
                   </div>
                 </div>
@@ -274,22 +271,22 @@ function CompareContent() {
       ) : selectedIds.length > 0 ? (
         <ComparisonTable models={compareData} onRemove={removeModel} />
       ) : (
-        <div className="empty-compare-state border-2 border-dashed border-gray-200 p-12 text-center bg-gray-50/50">
-          <svg className="mx-auto mb-4 text-gray-300" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="m16 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="m2 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="M7 21h10"/><path d="M12 21V3"/><path d="M3 7h18"/></svg>
-          <h3 className="text-lg font-black uppercase tracking-tight mb-2">Comienza una comparativa</h3>
-          <p className="text-gray-500 text-sm italic mb-8 max-w-md mx-auto">
+        <div className="empty-compare-state border border-gray-200 pt-12 pb-24 px-12 text-center bg-gray-50/30 rounded-sm overflow-hidden">
+          <svg className="mx-auto mb-4 text-gray-300" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="m16 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="m2 16 3-8 3 8c-.87.65-2.13.65-3 0s-2.13-.65-3 0Z"/><path d="M7 21h10"/><path d="M12 21V3"/><path d="M3 7h18"/></svg>
+          <h3 className="text-xl font-black uppercase tracking-tight mb-2">Comienza una comparativa</h3>
+          <p className="text-gray-500 text-sm italic mb-12 max-w-md mx-auto">
             Busca modelos arriba o prueba una de estas comparativas sugeridas por la comunidad técnica:
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {suggestions.map((s, i) => (
               <button 
                 key={i}
                 onClick={() => setSelectedIds(s.ids)}
-                className="p-4 bg-white border-2 border-slate-900 hover:bg-blue-50 transition-colors text-left group shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]"
+                className="p-5 bg-white border border-gray-300 hover:border-blue-600 hover:bg-white transition-all text-left group shadow-sm hover:shadow-md"
               >
                 <div className="text-[10px] font-black text-blue-600 uppercase mb-1">{s.label}</div>
-                <div className="font-bold text-sm group-hover:underline">{s.name}</div>
+                <div className="font-bold text-sm group-hover:text-blue-700 transition-colors">{s.name}</div>
               </button>
             ))}
           </div>

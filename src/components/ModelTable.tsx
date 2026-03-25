@@ -150,15 +150,15 @@ export default function ModelTable({ models, sortConfig, onSort }: ModelTablePro
             <td>
               <div className="flex flex-wrap gap-1 justify-center">
                 {model.model_categories && model.model_categories.length > 0 ? (
-                  model.model_categories.map((mc) => (
+                  model.model_categories.map((mc, idx) => mc.category ? (
                     <Link 
-                      key={mc.category.id} 
+                      key={mc.category.id || idx} 
                       href={`/category/${mc.category.slug}`}
                       className={`badge badge-text ${getTypeClass(model.type)}`}
                     >
                       {mc.category.name}
                     </Link>
-                  ))
+                  ) : null)
                 ) : (
                   <span className="badge badge-empty">Sin categoría</span>
                 )}

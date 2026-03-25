@@ -70,32 +70,35 @@ export default function ComparisonTable({ models, onRemove }: Props) {
       <table className="compare-matrix w-full border-collapse">
         <thead>
           <tr>
-            <th scope="col" className="sticky left-0 bg-gray-50 z-10 text-left border p-4 min-w-[150px]">Atributo</th>
+            <th scope="col" className="sticky left-0 bg-gray-50 z-10 text-left border border-gray-200 p-4 min-w-[150px] text-[10px] uppercase font-black text-gray-400">Atributo</th>
             {models.map(model => (
-              <th key={model.id} scope="col" className="border p-4 min-w-[200px] bg-white text-center">
-                <div className="flex flex-col items-center gap-2">
-                  <div className="compare-model-logo relative" aria-hidden="true">
+              <th key={model.id} scope="col" className="border border-gray-200 p-4 min-w-[200px] bg-white text-center">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="compare-model-logo relative border border-gray-200 p-1 bg-white" aria-hidden="true">
                     {model.logo_url ? (
                       <Image 
                         src={model.logo_url} 
                         alt="" 
-                        width={40} 
-                        height={40} 
+                        width={32} 
+                        height={32} 
                         className="w-full h-full object-contain" 
                       />
                     ) : (
-                      <span className="text-lg uppercase font-black">{model.name[0]}</span>
+                      <span className="text-lg uppercase font-black text-gray-300">{model.name[0]}</span>
                     )}
                   </div>
-                  <Link href={`/ai/${model.slug}`} className="font-bold text-blue-700 hover:underline tracking-tight">
-                    {model.name}
-                  </Link>
+                  <div className="flex flex-col items-center">
+                    <Link href={`/ai/${model.slug}`} className="font-bold text-blue-600 hover:underline tracking-tight text-sm">
+                      {model.name}
+                    </Link>
+                    <span className="text-[9px] uppercase font-bold text-gray-400 font-mono">{model.developer}</span>
+                  </div>
                   <button 
                     onClick={() => onRemove(model.id)}
-                    className="text-[10px] uppercase font-bold text-red-500 hover:text-red-700 p-1"
+                    className="text-[10px] uppercase font-bold text-red-500 hover:text-white hover:bg-red-500 border border-transparent hover:border-red-600 px-2 py-0.5 transition-all mt-1"
                     aria-label={`Quitar ${model.name} de la comparación`}
                   >
-                    [Quitar]
+                    Quitar
                   </button>
                 </div>
               </th>
