@@ -31,11 +31,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'API Key not configured' }, { status: 500 });
     }
 
-    // Fetch models for grounding
+    // 1. Fetch total count of models for context
+    const { count: totalCount } = await supabase
+      .from('models')
+      .select('*', { count: 'exact', head: true });
+
+    // 2. Fetch models for grounding (optimized limit)
     const { data: models } = await supabase
       .from('models')
       .select('name, developer, type, description, mmlu_score, gsm8k_score, humaneval_score')
-      .limit(20);
+      .order('mmlu_score', { ascending: false })
+      .limit(100);
 
     interface KnowledgeBaseModel {
       name: string;
@@ -46,19 +52,23 @@ export async function POST(req: Request) {
       humaneval_score: number | null;
     }
 
-    const knowledgeBase = (models as unknown as KnowledgeBaseModel[])?.map((m: KnowledgeBaseModel) =>
-      `- ${m.name} (por ${m.developer}): ${m.description}. Benchmarks: MMLU ${m.mmlu_score}%, GSM8K ${m.gsm8k_score}%, HumanEval ${m.humaneval_score}%.`
-    ).join('\n') || 'No hay modelos registrados actualmente en el índice.';
+    const knowledgeBase = (models as unknown as KnowledgeBaseModel[])?.map((m: KnowledgeBaseModel) => {
+      const desc = m.description ? m.description.substring(0, 120) : 'Sin descripción';
+      return `- ${m.name} (${m.developer}): ${desc}. Benchmarks: MMLU:${m.mmlu_score || 'N/A'}%, GSM8K:${m.gsm8k_score || 'N/A'}%, HE:${m.humaneval_score || 'N/A'}%.`;
+    }).join('\n') || 'No hay modelos registrados actualmente en el índice.';
 
     const systemPrompt = `Eres el asistente técnico de wikIA.
-TU CONOCIMIENTO SE LIMITA EXCLUSIVAMENTE A ESTOS MODELOS DE NUESTRA BASE DE DATOS:
+NUESTRA BASE DE DATOS TIENE UN TOTAL DE ${totalCount || 'varios'} MODELOS.
+TU CONOCIMIENTO TÉCNICO DETALLADO INCLUYE LOS SIGUIENTES ${models?.length || 0} MODELOS:
 ${knowledgeBase}
 
 REGLAS CRÍTICAS:
-1. SOLO recomienda o resuelve dudas sobre los modelos listados arriba.
-2. Si preguntan por modelos externos (como o1, Claude 3.5, etc.) que NO estén en la lista, di que no están en el índice y ofrece la mejor alternativa de la lista.
-3. Ayuda al usuario a elegir basándote en los benchmarks y descripciones proporcionadas.
-4. Sé conciso y profesional.`;
+1. Indica que tenemos ${totalCount || 'muchos'} modelos en total.
+2. Resuelve dudas técnicas basadas EN LOS DATOS PROPORCIONADOS arriba.
+3. Si preguntan por modelos externos, di que no están en el índice y ofrece la mejor alternativa de la lista.
+4. Sé directo, técnico y profesional. No saludes en cada respuesta si ya hay historial.`;
+
+
 
     // SECURITY: Sanitize messages and enforce resource limits
     // 1. Only allow 'user' and 'assistant' roles from the client.

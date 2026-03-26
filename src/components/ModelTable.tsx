@@ -10,8 +10,12 @@ interface ModelTableProps {
 
 export default function ModelTable({ models, sortConfig, onSort }: ModelTableProps) {
   const getIndicator = (key: string) => {
-    if (sortConfig?.key !== key) return null;
-    return sortConfig.direction === 'asc' ? ' ▲' : ' ▼';
+    if (sortConfig?.key !== key) return (
+      <span className="opacity-0 group-hover:opacity-30 transition-opacity ml-1">⇅</span>
+    );
+    return sortConfig.direction === 'asc' ? 
+      <span className="text-blue-600 ml-1">↑</span> : 
+      <span className="text-blue-600 ml-1">↓</span>;
   };
 
   const getLicenseClass = (license: string) => {
@@ -31,81 +35,81 @@ export default function ModelTable({ models, sortConfig, onSort }: ModelTablePro
       <thead>
         <tr>
           <th style={{ width: '40px' }}>#</th>
-          <th onClick={() => onSort?.('name')} className="cursor-pointer hover:bg-gray-100 text-left">
+          <th onClick={() => onSort?.('name')} className="cursor-pointer hover:bg-gray-100 text-left group">
             Modelo 
             <span className="wiki-tooltip">
               [?]
-              <span className="tooltip-text">
+              <span className="tooltip-text tooltip-down">
                 Nombre técnico y comercial del modelo fundacional registrado.
               </span>
             </span>
             {getIndicator('name')}
           </th>
-          <th onClick={() => onSort?.('developer')} className="cursor-pointer hover:bg-gray-100">
+          <th onClick={() => onSort?.('developer')} className="cursor-pointer hover:bg-gray-100 group">
             Desarrollador 
             <span className="wiki-tooltip">
               [?]
-              <span className="tooltip-text">
+              <span className="tooltip-text tooltip-down">
                 Organización o consorcio responsable del desarrollo del modelo.
               </span>
             </span>
             {getIndicator('developer')}
           </th>
-          <th onClick={() => onSort?.('type')} className="cursor-pointer hover:bg-gray-100">
+          <th onClick={() => onSort?.('type')} className="cursor-pointer hover:bg-gray-100 group">
             Categoría 
             <span className="wiki-tooltip">
               [?]
-              <span className="tooltip-text">
+              <span className="tooltip-text tooltip-down">
                 Clasificación basada en la arquitectura o función (e.g. LLM, Vision).
               </span>
             </span>
             {getIndicator('type')}
           </th>
-          <th onClick={() => onSort?.('license')} className="cursor-pointer hover:bg-gray-100">
+          <th onClick={() => onSort?.('license')} className="cursor-pointer hover:bg-gray-100 group">
             Licencia 
             <span className="wiki-tooltip">
               [?]
-              <span className="tooltip-text">
+              <span className="tooltip-text tooltip-down">
                 Términos legales de distribución (Proprietary, Apache, etc.).
               </span>
             </span>
             {getIndicator('license')}
           </th>
-          <th onClick={() => onSort?.('parameters')} className="cursor-pointer hover:bg-gray-100">
+          <th onClick={() => onSort?.('parameters')} className="cursor-pointer hover:bg-gray-100 group">
             Parámetros 
             <span className="wiki-tooltip">
               [?]
-              <span className="tooltip-text">
+              <span className="tooltip-text tooltip-down">
                 Cantidad estimada de variables ajustables (en billones &apos;B&apos;).
               </span>
             </span>
             {getIndicator('parameters')}
           </th>
-          <th onClick={() => onSort?.('mmlu_score')} className="cursor-pointer hover:bg-gray-100">
+          <th onClick={() => onSort?.('mmlu_score')} className="cursor-pointer hover:bg-gray-100 group">
             MMLU 
             <span className="wiki-tooltip">
               [?]
-              <span className="tooltip-text">
+              <span className="tooltip-text tooltip-down">
                 Massive Multitask Language Understanding: Benchmark que mide conocimiento general en 57 materias.
               </span>
             </span>
             {getIndicator('mmlu_score')}
           </th>
-          <th onClick={() => onSort?.('context_window')} className="cursor-pointer hover:bg-gray-100">
+          <th onClick={() => onSort?.('context_window')} className="cursor-pointer hover:bg-gray-100 group">
             Contexto 
             <span className="wiki-tooltip">
               [?]
-              <span className="tooltip-text">
+              <span className="tooltip-text tooltip-down">
                 Capacidad máxima de tokens (texto) procesables simultáneamente.
               </span>
             </span>
             {getIndicator('context_window')}
           </th>
-          <th onClick={() => onSort?.('release_date')} className="cursor-pointer hover:bg-gray-100">
+          <th onClick={() => onSort?.('release_date')} className="cursor-pointer hover:bg-gray-100 group">
             Lanzamiento 
             <span className="wiki-tooltip">
               [?]
-              <span className="tooltip-text">
+              <span className="tooltip-text tooltip-down">
                 Fecha oficial de publicación o disponibilidad general.
               </span>
             </span>

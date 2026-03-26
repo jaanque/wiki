@@ -16,7 +16,9 @@ function HomeContent() {
     direction: 'desc'
   });
   const [categories, setCategories] = useState<{name: string, slug: string}[]>([])
-  const PAGE_SIZE = 10
+  const PAGE_SIZE = 10;
+
+
   
   const { models, loading, totalCount } = useModels(
     page, 
@@ -78,7 +80,19 @@ function HomeContent() {
           
           <div className="ask-ai-trigger" onClick={() => window.dispatchEvent(new CustomEvent('open-mini-chat'))}>
             <div className="ask-ai-placeholder flex items-center gap-2">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <svg 
+                width="14" 
+                height="14" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="3" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className="text-blue-500 ai-pulse"
+              >
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
               Consultar al asistente IA sobre modelos o benchmarks...
             </div>
             <button className="ask-ai-btn">Preguntar a la IA</button>
@@ -116,8 +130,8 @@ function HomeContent() {
 
       {/* TECHNICAL FILTER TOOLBAR */}
       <div className="technical-toolbar">
-        <div className="toolbar-search">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <div className="toolbar-search relative group">
+          <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           <input 
             type="text"
             placeholder="Buscar modelo..."
@@ -125,6 +139,15 @@ function HomeContent() {
             onChange={(e) => handleSearch(e.target.value)}
             className="toolbar-input"
           />
+          {searchQuery && (
+            <button 
+              onClick={() => handleSearch('')}
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full text-gray-400 hover:text-red-500 transition-colors"
+              title="Limpiar búsqueda"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+          )}
         </div>
 
         <div className="toolbar-item">
@@ -142,14 +165,16 @@ function HomeContent() {
         </div>
 
         <div className="toolbar-item">
-          <span className="toolbar-results">DB_RESULTS: {totalCount}</span>
+          <span className={`toolbar-results ${loading ? 'updating' : ''}`}>
+            {loading ? 'BUSCANDO...' : `DATA_NODES: ${totalCount}`}
+          </span>
         </div>
       </div>
       
       {loading ? (
         <SkeletonTable />
       ) : (
-        <div className="fade-in">
+        <div className="fade-in table-container">
           <ModelTable 
             models={models} 
             sortConfig={sortConfig}
@@ -157,6 +182,7 @@ function HomeContent() {
           />
         </div>
       )}
+
 
       {/* PAGINATION */}
       {!loading && totalPages > 1 && (
