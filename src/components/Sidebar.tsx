@@ -64,17 +64,7 @@ export default function Sidebar() {
               <span>Portada</span>
             </Link>
           </li>
-          <li>
-            <Link 
-              href="/explore" 
-              className={`${pathname === '/explore' ? 'active' : ''} flex items-center`}
-              aria-current={pathname === '/explore' ? 'page' : undefined}
-              title="Explorar el directorio completo de modelos"
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <span>Explorar</span>
-            </Link>
-          </li>
+
           <li>
             <Link 
               href="/recent" 
@@ -97,17 +87,7 @@ export default function Sidebar() {
               <span>Modelo Aleatorio</span>
             </Link>
           </li>
-          <li>
-            <Link 
-              href="/ranking" 
-              className={`${pathname === '/ranking' ? 'active' : ''} flex items-center`}
-              aria-current={pathname === '/ranking' ? 'page' : undefined}
-              title="Ver clasificación de modelos por rendimiento técnico"
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              <span>Clasificación</span>
-            </Link>
-          </li>
+
           <li>
             <Link 
               href="/history" 

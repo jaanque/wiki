@@ -10,11 +10,35 @@ import SkeletonTable from '@/components/SkeletonTable'
 function HomeContent() {
   const [page, setPage] = useState(1)
   const [searchQuery, setSearchQuery] = useState('')
+  const [debouncedQuery, setDebouncedQuery] = useState('')
+
   const [selectedCategory, setSelectedCategory] = useState('')
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' }>({
     key: 'release_date',
     direction: 'desc'
   });
+  
+  // Debounce effect
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(searchQuery)
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [searchQuery])
+
+  // Global shortcut to focus (/ or k)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+        e.preventDefault()
+        const input = document.querySelector('.toolbar-input') as HTMLInputElement
+        input?.focus()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   const [categories, setCategories] = useState<{name: string, slug: string}[]>([])
   const PAGE_SIZE = 10;
 
@@ -23,7 +47,7 @@ function HomeContent() {
   const { models, loading, totalCount } = useModels(
     page, 
     PAGE_SIZE, 
-    searchQuery, 
+    debouncedQuery, 
     selectedCategory,
     sortConfig.key,
     sortConfig.direction
@@ -131,14 +155,36 @@ function HomeContent() {
       {/* TECHNICAL FILTER TOOLBAR */}
       <div className="technical-toolbar">
         <div className="toolbar-search relative group">
-          <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <svg 
+            className={`absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 ${loading ? 'ai-pulse text-blue-500' : ''}`} 
+            width="12" 
+            height="12" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2.5"
+          >
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+          </svg>
           <input 
             type="text"
-            placeholder="Buscar modelo..."
+            placeholder="Buscar modelo, empresa o benchmark en el índice..."
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
             className="toolbar-input"
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') {
+                handleSearch('')
+                ;(e.target as HTMLInputElement).blur()
+              }
+            }}
           />
+          {!searchQuery && (
+            <div className="absolute right-3 inset-y-0 items-center opacity-40 pointer-events-none hidden md:flex">
+              <span className="text-[9px] font-mono border border-gray-300 px-1.5 py-0.5 rounded bg-gray-50 uppercase tracking-tighter">Pulsar [/] para buscar</span>
+            </div>
+          )}
+
           {searchQuery && (
             <button 
               onClick={() => handleSearch('')}
@@ -166,7 +212,7 @@ function HomeContent() {
 
         <div className="toolbar-item">
           <span className={`toolbar-results ${loading ? 'updating' : ''}`}>
-            {loading ? 'BUSCANDO...' : `DATA_NODES: ${totalCount}`}
+             {loading ? 'SINCRONIZANDO...' : `${totalCount.toLocaleString()} REGISTROS TÉCNICOS`}
           </span>
         </div>
       </div>

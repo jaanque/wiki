@@ -18,18 +18,22 @@ export default function Breadcrumbs() {
       <Link href="/" className="text-blue-600 hover:text-blue-800 transition-colors">PORTADA</Link>
       
       {segments.map((segment, index) => {
-        const url = `/${segments.slice(0, index + 1).join('/')}`
+        let url = `/${segments.slice(0, index + 1).join('/')}`
+        if (segment === 'ai') url = '/' // Redirigir segmento técnico a portada
         const isLast = index === segments.length - 1
         
         let label = segment.charAt(0).toUpperCase() + segment.slice(1)
         if (segment === 'recent') label = 'Modelos Recientes'
         if (segment === 'ai') label = 'EXPLORAR'
-        if (segment === 'explore') label = 'EXPLORAR'
+
         if (segment === 'random') label = 'Modelo Aleatorio'
         if (segment === 'category') label = 'Categoría'
 
-        if (isLast && segments[0] === 'ai') label = segment.toUpperCase()
+
         if (isLast && segments[0] === 'category') label = segment.charAt(0).toUpperCase() + segment.slice(1)
+        
+        // No renderizar el segmento técnico 'ai'
+        if (segment === 'ai') return null
 
         return (
           <div key={url} className="flex items-center gap-2">
