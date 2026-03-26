@@ -1284,7 +1284,7 @@ th.cursor-pointer:active {
 }
 
 /* Sticky Header for Data Grid */
-.data-grid thead th { position: sticky; top: 48px; background: white; z-index: 20; box-shadow: 0 1px 0 var(--wiki-border); }
+.data-grid thead th { position: sticky; top: -1px; background: white; z-index: 20; box-shadow: 0 1px 0 var(--wiki-border); }
 
 /* Smooth Row Hover */
 .data-grid tbody tr { transition: background-color 0.1s; }

@@ -60,16 +60,36 @@ export default async function ModelPage({ params }: { params: Promise<{ slug: st
               <div className="model-title-stack">
                 <h1 className="model-name-display">{model.name}</h1>
                 <div className="model-metatags">
-                  <span className={`tag-v4 ${getTypeClass(model.type)}`}>{model.type}</span>
-                  <span className="developer-tag">Desarrollado por <strong>{model.developer}</strong></span>
-                  <span className="release-tag">Lanzamiento: {model.release_date}</span>
+                  <div className="flex flex-wrap gap-1">
+                    {model.model_categories && model.model_categories.length > 0 ? (
+                      model.model_categories.map((mc, idx) => mc.category ? (
+                        <Link 
+                          key={mc.category.id || idx} 
+                          href={`/category/${mc.category.slug}`}
+                          className={`badge badge-text ${getTypeClass(mc.category.name || model.type || '')}`}
+                        >
+                          {mc.category.name}
+                        </Link>
+                      ) : null)
+                    ) : (
+                      <span className={`badge badge-text ${getTypeClass(model.type || 'desconocido')}`}>
+                        {model.type || 'DESCONOCIDO'}
+                      </span>
+                    )}
+                  </div>
+                  {model.developer && (
+                    <span className="developer-tag">Desarrollado por <strong>{model.developer}</strong></span>
+                  )}
+                  {model.release_date && (
+                    <span className="release-tag">Lanzamiento: {model.release_date}</span>
+                  )}
                 </div>
               </div>
             </div>
           </header>
 
           <section className="dashboard-section">
-            <h3 className="section-label-technical">[RESUMEN_EJECUTIVO]</h3>
+            <h3 className="section-label-technical">[DESCRIPCIÓN]</h3>
             <div className="model-description-box">
               <p>{model.description || 'Sin descripción técnica registrada.'}</p>
               {model.details?.full_description && (
@@ -81,7 +101,7 @@ export default async function ModelPage({ params }: { params: Promise<{ slug: st
           </section>
 
           <section className="dashboard-section">
-            <h3 className="section-label-technical">[MÉTRICAS_DE_PERFORMANCE]</h3>
+            <h3 className="section-label-technical">[MÉTRICAS]</h3>
             <div className="benchmarks-dashboard-grid">
               <MetricCard label="MMLU" value={model.mmlu_score} sub="General Knowledge" />
               <MetricCard label="GSM8K" value={model.gsm8k_score} sub="Math Reasoning" />
@@ -175,7 +195,7 @@ function InfoRow({ label, value }: { label: string, value: string }) {
 
 function getTypeClass(type: string) {
   const t = type.toLowerCase();
-  if (t.includes('multimodal')) return 'tag-multimodal-v4';
-  return 'tag-text-v4';
+  if (t.includes('multimodal') || t.includes('multi-modal')) return 'tag-type-multimodal';
+  return 'tag-type-text';
 }
 
